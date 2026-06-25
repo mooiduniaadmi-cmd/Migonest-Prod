@@ -1,0 +1,7 @@
+**Release Notes for Google Play (Version 1.0.6)**
+
+**What's New & Improved:**
+- **App Icon Upgrades**: Updated app branding with our new high-resolution Migonest logo icons on both Android and iOS devices.
+- **Mobile Download Fixes**: Resolved template download behaviors for Admission Guidelines (PDF and DOCX), ensuring reliable native system browser downloads.
+- **Improved Edge-to-Edge Navigation**: Fixed the status bar layout gap at the top of the app, aligning the top nav bar perfectly below the phone notch for a premium, native look.
+- **Auth UI Enhancements**: Restructured the Shared Content Gate authentication actions for a cleaner login and account creation experience.

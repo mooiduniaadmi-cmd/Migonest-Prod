@@ -1,0 +1,65 @@
+{
+    "redirects": [
+        {
+            "source": "/((?!\\.well-known).*)",
+            "has": [
+                {
+                    "type": "host",
+                    "value": "migonest.com"
+                }
+            ],
+            "destination": "https://www.migonest.com/$1",
+            "permanent": true
+        }
+    ],
+    "headers": [
+        {
+            "source": "/.well-known/assetlinks.json",
+            "headers": [
+                {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                }
+            ]
+        },
+        {
+            "source": "/.well-known/apple-app-site-association",
+            "headers": [
+                {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                }
+            ]
+        }
+    ],
+    "rewrites": [
+        {
+            "source": "/auth/(.*)",
+            "destination": "https://gwengahnqgvwoletcovl.supabase.co/auth/$1"
+        },
+        {
+            "source": "/in/:slug((?!.*\\.).*)",
+            "destination": "/api/index"
+        },
+        {
+            "source": "/m/:slug((?!.*\\.).*)",
+            "destination": "/api/index"
+        },
+        {
+            "source": "/post/:id((?!.*\\.).*)",
+            "destination": "/api/index"
+        },
+        {
+            "source": "/api/(.*)",
+            "destination": "/api/index"
+        },
+        {
+            "source": "/.well-known/:path*",
+            "destination": "/.well-known/:path*"
+        },
+        {
+            "source": "/((?!api|auth|\\.well-known|.*\\.[a-zA-Z0-9]+$).*)",
+            "destination": "/index.html"
+        }
+    ]
+}

@@ -1,0 +1,30 @@
+[
+  {
+    "relation": [
+      "delegate_permission/common.handle_all_urls",
+      "delegate_permission/common.get_login_creds"
+    ],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.migonest.app",
+      "sha256_cert_fingerprints": [
+        "15:34:1D:83:E3:C6:F9:A9:31:2E:2D:4C:4C:5F:17:89:D0:06:17:3B:D3:6A:8E:31:C2:94:38:C2:58:37:D3:29",
+        "43:B7:2C:A3:20:6D:AB:04:A1:BB:A9:B6:21:4F:C4:96:D6:EE:3C:16:22:7F:31:F1:FB:5F:FE:FD:7E:35:BE:4F"
+      ]
+    }
+  },
+  {
+    "relation": [
+      "delegate_permission/common.handle_all_urls",
+      "delegate_permission/common.get_login_creds"
+    ],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.migonest.app.staging",
+      "sha256_cert_fingerprints": [
+        "15:34:1D:83:E3:C6:F9:A9:31:2E:2D:4C:4C:5F:17:89:D0:06:17:3B:D3:6A:8E:31:C2:94:38:C2:58:37:D3:29",
+        "43:B7:2C:A3:20:6D:AB:04:A1:BB:A9:B6:21:4F:C4:96:D6:EE:3C:16:22:7F:31:F1:FB:5F:FE:FD:7E:35:BE:4F"
+      ]
+    }
+  }
+]

@@ -1,0 +1,226 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Standard CSS for base animations and scrollbar behaviors */
+body {
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 200ms;
+  /* Prevent bounce and global scroll */
+  height: 100%;
+  overscroll-behavior: none;
+  background-color: #0f172a; /* Match dark theme by default to prevent white flashes */
+}
+
+.dark body {
+  background-color: #0f172a;
+  /* slate-900 fallback */
+}
+
+html {
+  height: 100%;
+  height: 100dvh;
+  background-color: #0f172a;
+}
+
+.dark html {
+  background-color: #0f172a;
+}
+
+html,
+body {
+  overflow: hidden;
+  height: 100%;
+  height: 100dvh;
+  width: 100%;
+  position: relative;
+  margin: 0;
+  padding: 0;
+}
+
+#root {
+  height: 100%;
+  isolation: isolate;
+}
+
+@keyframes wiggle {
+  0%,
+  100% {
+    transform: rotate(0deg);
+  }
+
+  25% {
+    transform: rotate(-8deg);
+  }
+
+  75% {
+    transform: rotate(8deg);
+  }
+}
+
+.animate-wiggle {
+  animation: wiggle 2s ease-in-out 13 forwards;
+  transform-origin: top center;
+}
+
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fade-in-up 0.3s ease-out forwards;
+}
+
+@keyframes slide-in-right {
+  from {
+    transform: translateX(100%);
+  }
+
+  to {
+    transform: translateX(0);
+  }
+}
+
+.animate-slide-in-right {
+  animation: slide-in-right 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Ensure rich text editor displays lists and bold text correctly */
+.rich-editor ul,
+.post-content-render ul {
+  list-style-type: disc;
+  margin-left: 1.5rem;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.rich-editor b,
+.rich-editor strong,
+.post-content-render b,
+.post-content-render strong {
+  font-weight: 800;
+}
+
+/* Fix for date input on iOS/Mobile Chrome and dark mode visibility */
+input[type="date"] {
+  color-scheme: light dark;
+  width: 100%;
+  min-width: 100%;
+  display: block;
+  background-clip: padding-box;
+  font-family: inherit;
+  font-size: 16px;
+  /* Prevents auto-zoom on iOS */
+  min-height: 52px;
+}
+
+.dark input[type="date"] {
+  color-scheme: dark !important;
+  color: #ffffff !important;
+}
+
+/* Force text visibility on mobile date inputs and fix iPhone Chrome height issue */
+input[type="date"]::-webkit-date-and-time-value {
+  min-height: 52px;
+  line-height: 52px;
+  text-align: left;
+  display: flex;
+  align-items: center;
+  color: inherit;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
+/* Explicitly style internal date fields for Dark Mode visibility */
+.dark input[type="date"]::-webkit-datetime-edit,
+.dark input[type="date"]::-webkit-datetime-edit-fields-wrapper,
+.dark input[type="date"]::-webkit-datetime-edit-text,
+.dark input[type="date"]::-webkit-datetime-edit-month-field,
+.dark input[type="date"]::-webkit-datetime-edit-day-field,
+.dark input[type="date"]::-webkit-datetime-edit-year-field {
+  color: #ffffff !important;
+  opacity: 1 !important;
+}
+
+/* Adjust the native indicator area for better clickability */
+input[type="date"]::-webkit-calendar-picker-indicator {
+  cursor: pointer;
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  /* Hide native to show our custom FA icon while keeping functionality */
+  z-index: 1;
+}
+
+/* Safe Area Insets for iOS and Android Notch/Home Indicator */
+:root {
+  --safe-top: constant(safe-area-inset-top, 0px);
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-bottom: constant(safe-area-inset-bottom, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+  --safe-left: constant(safe-area-inset-left, 0px);
+  --safe-left: env(safe-area-inset-left, 0px);
+  --safe-right: constant(safe-area-inset-right, 0px);
+  --safe-right: env(safe-area-inset-right, 0px);
+}
+
+/* Standard Safe Area Insets are handled by :root and pt-safe utility */
+
+.pt-safe {
+  padding-top: var(--safe-top);
+}
+
+.pb-safe {
+  padding-bottom: var(--safe-bottom);
+}
+
+.pl-safe {
+  padding-left: var(--safe-left);
+}
+
+.pr-safe {
+  padding-right: var(--safe-right);
+}
+
+.px-safe {
+  padding-left: var(--safe-left);
+  padding-right: var(--safe-right);
+}
+
+.mt-safe {
+  margin-top: var(--safe-top);
+}
+
+.mb-safe {
+  margin-bottom: var(--safe-bottom);
+}
+
+.h-header-safe {
+  height: calc(64px + var(--safe-top));
+}
+
+.h-nav-safe {
+  height: calc(4.5rem + var(--safe-bottom));
+}
