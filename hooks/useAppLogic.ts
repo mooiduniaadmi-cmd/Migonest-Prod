@@ -3145,6 +3145,9 @@ export const useAppLogic = () => {
         navigateTo('MESSAGES');
       } else if (n.type === 'POST') {
         navigateTo('HOME');
+      } else if (n.type === 'SYSTEM') {
+        setProfileTargetSection('MEMBERSHIP');
+        navigateTo('PROFILE');
       }
     },
     refreshUserProfileInLists: useCallback(async (userId: string) => {
