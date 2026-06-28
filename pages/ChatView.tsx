@@ -77,6 +77,26 @@ export const ChatView: React.FC<Props> = ({
 
     const allKnownUsers = [...experts, ...students];
     
+    // Fallback: Add missing users from serviceRequests (e.g. if a student hired an expert but isn't in the public lists)
+    serviceRequests?.forEach(sr => {
+      if (sr.studentId !== user.id && !allKnownUsers.some(u => u.id === sr.studentId)) {
+        allKnownUsers.push({
+          id: sr.studentId,
+          fullName: sr.studentFullName,
+          avatarUrl: sr.studentAvatarUrl || '',
+          role: 'STUDENT'
+        } as any);
+      }
+      if (sr.expertId !== user.id && !allKnownUsers.some(u => u.id === sr.expertId)) {
+        allKnownUsers.push({
+          id: sr.expertId,
+          fullName: sr.expertFullName,
+          avatarUrl: sr.expertAvatarUrl || '',
+          role: 'EXPERT'
+        } as any);
+      }
+    });
+
     // 3. Filter and Sort
     return allKnownUsers
       .filter(u => messagePartnerIds.has(u.id))
@@ -90,7 +110,7 @@ export const ChatView: React.FC<Props> = ({
         if (!lastB) return -1;
         return lastB.timestamp - lastA.timestamp;
       });
-  }, [user.id, experts, students, messages, activeChatId]);
+  }, [user.id, experts, students, messages, activeChatId, serviceRequests]);
 
   const activePartner = useMemo(() => {
     if (!activeChatId) return null;
