@@ -262,10 +262,21 @@ export const ViewRouter: React.FC<any> = (props) => {
         />
       );
     case 'MESSAGES':
+      const chatExperts = [...expertsList];
+      const chatStudents = [...studentsList];
+      
+      connectedProfiles.forEach(cp => {
+        if (cp.role === 'EXPERT') {
+          if (!chatExperts.some(e => e.id === cp.id)) chatExperts.push(cp);
+        } else {
+          if (!chatStudents.some(s => s.id === cp.id)) chatStudents.push(cp);
+        }
+      });
+
       return <ChatView
         user={currentUser}
-        experts={expertsList}
-        students={studentsList}
+        experts={chatExperts}
+        students={chatStudents}
         activeChatId={activeChatId}
         setActiveChatId={setActiveChatId}
         messages={messages}
