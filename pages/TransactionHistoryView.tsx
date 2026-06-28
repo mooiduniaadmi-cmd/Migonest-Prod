@@ -91,7 +91,7 @@ export const TransactionHistoryView: React.FC<Props> = ({
             ) : transactions.length === 0 ? (
                 <div className="bg-white dark:bg-slate-800 rounded-3xl p-16 text-center border border-dashed border-gray-200 dark:border-slate-700 shadow-sm">
                     <div className="w-20 h-20 bg-slate-50 dark:bg-slate-900 rounded-full flex items-center justify-center mx-auto mb-6">
-                        <Icons.Money className="w-10 h-10 text-slate-300" />
+                        <i className="fas fa-wallet text-slate-300 text-4xl"></i>
                     </div>
                     <h3 className="text-xl font-bold mb-2">No transactions found</h3>
                     <p className="text-slate-500 max-w-sm mx-auto">Try adjusting your filters or search term to find what you're looking for.</p>

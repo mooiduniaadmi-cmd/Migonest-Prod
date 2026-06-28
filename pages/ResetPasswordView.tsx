@@ -10,9 +10,11 @@ interface Props {
     authError?: string;
     isLoading?: boolean;
     recoveryTokens?: { access_token: string, refresh_token: string } | null;
+    setAuthError?: (error: string | null) => void;
+    clearAuthError?: () => void;
 }
 
-export const ResetPasswordView: React.FC<Props> = ({ onSuccess, onCancel, authError, isLoading, recoveryTokens }) => {
+export const ResetPasswordView: React.FC<Props> = ({ onSuccess, onCancel, authError, isLoading, recoveryTokens, setAuthError, clearAuthError }) => {
     const [newPassword, setNewPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [showNewPass, setShowNewPass] = useState(false);

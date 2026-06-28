@@ -5,6 +5,7 @@ import { Icons } from '../components/Icons';
 import { api } from '../services/api';
 
 interface Props {
+    admin?: any;
     setView: (v: string) => void;
     isIOSNative?: boolean;
 }

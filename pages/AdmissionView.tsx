@@ -36,7 +36,7 @@ interface Props {
   experts: Profile[];
   students: Profile[];
   onApproveMilestone: (id: string, step: string) => Promise<void>;
-  onMarkMilestone: (id: string, step: string) => Promise<void>;
+  onMarkMilestone: (id: string, notes?: string, file?: File) => Promise<void>;
   onRejectMilestone: (id: string, message: string, file?: File) => Promise<void>;
 
   onReportVisaRejection: (id: string, file: File) => Promise<void>;

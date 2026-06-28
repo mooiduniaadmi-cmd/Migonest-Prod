@@ -558,6 +558,7 @@ export const ProfileView: React.FC<Props> = ({
         authorId: isExpert ? sr.studentId : sr.expertId,
         authorName: isExpert ? sr.studentFullName : sr.expertFullName,
         authorAvatarUrl: isExpert ? (sr.studentAvatarUrl || '') : (sr.expertAvatarUrl || ''),
+        authorRole: isExpert ? 'STUDENT' : 'EXPERT',
         rating: isExpert ? (sr.studentRating || 5) : (sr.expertRating || 5),
         comment: isExpert ? (sr.studentFeedback || '') : (sr.expertFeedback || ''),
         timestamp: Date.now() // For demo purposes
@@ -1264,8 +1265,8 @@ export const ProfileView: React.FC<Props> = ({
                       user={currentUser || user} // Prefer session user for context, fallback to profile user (view only)
                       onPost={onPost || (async () => { })}
                       onAuthorClick={() => { }} // No-op on own profile
-                      onEdit={currentUser?.id === post.authorId ? onEditPost : undefined}
-                      onDelete={currentUser?.id === post.authorId ? onDeletePost : undefined}
+                      onEdit={currentUser?.id === post.authorId && onEditPost ? (p) => onEditPost(p.id, p.content) : undefined}
+                      onDelete={currentUser?.id === post.authorId && onDeletePost ? (p) => onDeletePost(p.id) : undefined}
                       onShare={(post) => {
                         const url = `${window.location.origin}/?view=PROFILE&userId=${post.authorId}&tab=posts`;
                         navigator.clipboard.writeText(url);
@@ -2116,7 +2117,7 @@ export const ProfileView: React.FC<Props> = ({
         onClose={() => setIsForceSubModalOpen(false)}
         onConfirm={() => {
           setIsForceSubModalOpen(false);
-          onSubscribe(true);
+          onSubscribe();
         }}
         isLoading={isSubscribing}
       />

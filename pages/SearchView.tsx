@@ -19,7 +19,10 @@ interface Props {
     hasMoreSearch: { experts: boolean, students: boolean };
     onLoadMoreSearch: (role: 'EXPERT' | 'STUDENT') => void;
     isIOSNative?: boolean;
+    isSearching?: boolean;
+    isFetchingMoreSearch?: boolean;
 }
+
 
 export const SearchView: React.FC<Props> = ({
     results, query, user, onHire, onChat, onToggleConnect, onViewProfile,
