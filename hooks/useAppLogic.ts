@@ -2317,9 +2317,10 @@ export const useAppLogic = () => {
   };
 
   const handleOnboardingComplete = () => {
-    // Use setView directly to bypass the navigateTo guard closure issue
-    setView('HOME');
-    console.log('[Navigation] Forced view to HOME after onboarding');
+    console.log('[Navigation] Completing onboarding, forcing hard reload to sync session...');
+    // A hard reload guarantees the app initializes with the fresh session from localStorage,
+    // avoiding stale state or race conditions that cause the user to appear logged out.
+    window.location.href = '/';
   };
 
   const navigateTo = useCallback((v: string) => {
