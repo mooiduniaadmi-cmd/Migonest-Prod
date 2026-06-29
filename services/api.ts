@@ -371,7 +371,6 @@ export const api = {
       installmentsPaid: data.installments_paid,
       stripeSubscriptionId: data.stripe_subscription_id,
       isLocked: data.is_locked,
-      date: new Date(data.created_at).toISOString().split('T')[0],
       student: data.student ? {
         fullName: data.student.full_name,
         avatarUrl: data.student.avatar_url,
