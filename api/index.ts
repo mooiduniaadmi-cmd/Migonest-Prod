@@ -2745,8 +2745,14 @@ app.post('/api/delete-account', async (req, res) => {
             });
         }
 
-        // 3. Perform deletion using admin privileges
-        const { error: deleteError } = await supabase.auth.admin.deleteUser(user.id);
+        // 3. Perform manual profile deletion to guarantee public data removal
+        const { error: profileDeleteError } = await supabase.from('profiles').delete().eq('id', user.id);
+        if (profileDeleteError) {
+            console.error('[DeleteAccount] Failed to explicitly delete profile:', profileDeleteError);
+        }
+
+        // 4. Perform hard deletion using admin privileges
+        const { error: deleteError } = await supabase.auth.admin.deleteUser(user.id, false);
         
         if (deleteError) {
             console.error('[DeleteAccount] Failed to delete user from Supabase Auth:', deleteError);
