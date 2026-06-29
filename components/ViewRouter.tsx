@@ -15,6 +15,7 @@ import { JourneyHistoryView } from '../pages/JourneyHistoryView';
 import { ResetPasswordView } from '../pages/ResetPasswordView';
 import { TransactionHistoryView } from '../pages/TransactionHistoryView';
 import { AdminWithdrawalView } from '../pages/AdminWithdrawalView';
+import { AdminAnalyticsView } from '../pages/AdminAnalyticsView';
 import { PrivacyView } from '../pages/PrivacyView';
 import { TermsView } from '../pages/TermsView';
 import { PromoBannerView } from '../pages/PromoBannerView';

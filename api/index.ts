@@ -2788,6 +2788,57 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     return app(req, res);
 }
 
+
+// ==========================================
+// ANALYTICS EVENTS
+// ==========================================
+import { UAParser } from 'ua-parser-js';
+
+app.post('/api/analytics/track', async (req, res) => {
+    try {
+        const { event_name, user_id, metadata } = req.body;
+
+        if (!event_name) {
+            return res.status(400).json({ error: 'event_name is required' });
+        }
+
+        const supabaseUrl = process.env.VITE_SUPABASE_URL || '';
+        const supabaseKey = process.env.VITE_SUPABASE_SERVICE_ROLE_KEY || process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.VITE_SUPABASE_ANON_KEY || '';
+        const supabase = createClient(supabaseUrl, supabaseKey);
+
+        const country = req.headers['x-vercel-ip-country'] || req.headers['cf-ipcountry'] || null;
+        const city = req.headers['x-vercel-ip-city'] || null;
+        const userAgent = req.headers['user-agent'] || '';
+
+        const parser = new UAParser(userAgent);
+        const deviceType = parser.getDevice().type || 'desktop';
+        const browser = parser.getBrowser().name || 'Unknown';
+
+        const { error } = await supabase
+            .from('analytics_events')
+            .insert({
+                event_name,
+                user_id: user_id || null,
+                country,
+                city,
+                device_type: deviceType,
+                browser,
+                metadata: metadata || {}
+            });
+
+        if (error) {
+            console.error('[Analytics] Insert Error:', error);
+            return res.status(500).json({ error: error.message });
+        }
+
+        return res.status(200).json({ success: true });
+    } catch (err: any) {
+        console.error('[Analytics] Handler Error:', err);
+        return res.status(500).json({ error: err.message });
+    }
+});
+
+// --- 404 CATCH-ALL
 // --- 404 CATCH-ALL (JSON for diagnostics) ---
 app.use((req, res) => {
     console.error(`[404] Not Found: ${req.method} ${req.url}`);

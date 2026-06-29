@@ -349,3 +349,37 @@ CREATE POLICY "Users can update their own notifications" ON "public"."notificati
 INSERT INTO storage.buckets (id, name, public) VALUES ('admission-documents', 'admission-documents', true) ON CONFLICT (id) DO NOTHING;
 CREATE POLICY "Authenticated users can upload admission docs" ON storage.objects FOR INSERT TO authenticated WITH CHECK (bucket_id = 'admission-documents');
 CREATE POLICY "Public view admission docs" ON storage.objects FOR SELECT TO PUBLIC USING (bucket_id = 'admission-documents');
+
+-- ==========================================
+-- ANALYTICS EVENTS TABLE
+-- ==========================================
+CREATE TABLE IF NOT EXISTS public.analytics_events (
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    event_name TEXT NOT NULL,
+    user_id UUID REFERENCES public.profiles(id) ON DELETE SET NULL,
+    country TEXT,
+    city TEXT,
+    device_type TEXT,
+    browser TEXT,
+    metadata JSONB,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+ALTER TABLE public.analytics_events ENABLE ROW LEVEL SECURITY;
+
+-- Only admins can read analytics
+CREATE POLICY "Admins can view analytics events" ON public.analytics_events
+    FOR SELECT
+    USING (
+        auth.uid() IN (
+            SELECT id FROM public.profiles WHERE role = 'ADMIN'
+        )
+    );
+
+-- Users can insert analytics via the authenticated API or service role,
+-- so we can leave insert policy strict if we handle inserts via backend with service key.
+-- But if we want to allow direct client inserts:
+CREATE POLICY "Anyone can insert analytics" ON public.analytics_events
+    FOR INSERT
+    WITH CHECK (true);
+

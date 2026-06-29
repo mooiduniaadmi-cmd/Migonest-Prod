@@ -4,6 +4,7 @@ import { Capacitor } from '@capacitor/core';
 import { LandingPage } from '../pages/LandingPage';
 import { LoginModal } from './LoginModal';
 import { SignupModal } from './SignupModal';
+import { trackEvent } from '../services/analytics';
 import { OnboardingView } from '../pages/OnboardingView';
 import { PaymentResultModal } from './PaymentResultModal';
 import { PrivacyModal } from './PrivacyModal';
@@ -294,14 +295,14 @@ export const AuthShell: React.FC<any> = (props) => {
       {isProtectedPath ? (
         <SharedContentAuthGate
           onLogin={() => setIsLoginModalOpen(true)}
-          onSignup={() => setIsSignupModalOpen(true)}
+          onSignup={() => { setIsSignupModalOpen(true); trackEvent('SIGNUP_CLICK'); }}
           isDark={isDark}
           toggleTheme={toggleTheme}
         />
       ) : (
         <LandingPage
           onLogin={() => setIsLoginModalOpen(true)}
-          onSignup={() => setIsSignupModalOpen(true)}
+          onSignup={() => { setIsSignupModalOpen(true); trackEvent('SIGNUP_CLICK'); }}
           isDark={isDark}
           toggleTheme={toggleTheme}
           guestMessage={null}
@@ -322,7 +323,7 @@ export const AuthShell: React.FC<any> = (props) => {
             onClose={() => { setIsLoginModalOpen(false); props.clearAuthError(); }}
             onSuccess={handleLoginSuccess}
             externalError={props.authError}
-            onSwitchToSignup={() => { setIsLoginModalOpen(false); setIsSignupModalOpen(true); }}
+            onSwitchToSignup={() => { setIsLoginModalOpen(false); { setIsSignupModalOpen(true); trackEvent('SIGNUP_CLICK'); }; }}
           />
           <SignupModal
             isOpen={isSignupModalOpen}
