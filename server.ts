@@ -636,6 +636,7 @@ app.post('/api/subscribe', async (req, res) => {
     const session = await stripe.checkout.sessions.create({
         customer: customerId,
         payment_method_types: ['card'],
+        wallet_options: { link: { display: 'never' } },
         line_items: [{
             price_data: {
                 currency: 'usd',

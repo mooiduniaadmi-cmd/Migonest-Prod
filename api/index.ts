@@ -994,6 +994,7 @@ app.post('/api/subscribe', async (req, res) => {
         const session = await stripeInstance.checkout.sessions.create({
             customer: customerId, // Keep customer ID for existing customers
             payment_method_types: ['card'],
+            wallet_options: { link: { display: 'never' } },
             line_items: [{
                 price_data: {
                     currency: 'usd',
@@ -1885,6 +1886,7 @@ app.post('/api/hire', async (req, res) => {
             let sessionConfig: Stripe.Checkout.SessionCreateParams = {
                 customer_email: studentProfile?.email || undefined,
                 payment_method_types: ['card'],
+                wallet_options: { link: { display: 'never' } },
                 line_items: [{
                     price_data: {
                         currency: 'usd',
@@ -1981,6 +1983,7 @@ app.post('/api/requests/:id/resume-payment', async (req, res) => {
             customer: customerId, // Use ID if found
             customer_email: customerId ? undefined : studentEmailProfile.email, // Fallback to email
             payment_method_types: ['card'],
+            wallet_options: { link: { display: 'never' } },
             line_items: [{
                 price_data: {
                     currency: 'usd',
