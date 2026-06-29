@@ -207,11 +207,6 @@ export const AuthShell: React.FC<any> = (props) => {
 
   // 7. Early Return: Internal Views (Onboarding, Privacy, Terms)
   if ((view === 'ONBOARDING' || (isOnboardingPath && !isMobileDevice)) && (currentUser || props.isAuthenticated)) {
-    // If the user is definitively known and already onboarded, bypass rendering the onboarding view.
-    // The useAppLogic will eventually sync the state and redirect to HOME.
-    if (currentUser && currentUser.isOnboarded) {
-      console.log('[AuthShell] User already onboarded. Bypassing OnboardingView render.');
-    } else {
     // If we are authenticated but the profile is still loading, 
     // create a temporary guest profile to allow the OnboardingView to mount.
     const activeUser = currentUser || {
@@ -229,7 +224,6 @@ export const AuthShell: React.FC<any> = (props) => {
         onComplete={handleOnboardingComplete} 
       />
     );
-    }
   }
 
   // 8. Handle Stripe Success Redirection
