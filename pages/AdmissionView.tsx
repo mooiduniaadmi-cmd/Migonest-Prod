@@ -637,7 +637,7 @@ export const AdmissionView: React.FC<Props> = ({
           </div>
         )}
 
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between mb-4">
           <button onClick={() => setActiveRequestId(null)} className="flex items-center gap-2 text-slate-500 hover:text-brand-600 transition font-bold text-sm">
             <i className="fas fa-arrow-left"></i> Back to Journeys
           </button>
@@ -650,6 +650,31 @@ export const AdmissionView: React.FC<Props> = ({
             </button>
           </div>
         </div>
+
+        {activeRequest.isLocked && (
+          <div className="bg-red-50 dark:bg-red-900/10 border-2 border-red-500 rounded-2xl p-6 mb-6 flex flex-col md:flex-row items-center gap-6 shadow-xl shadow-red-500/10">
+            <div className="w-14 h-14 bg-red-100 text-red-600 rounded-full flex items-center justify-center text-2xl shrink-0 shadow-inner">
+              <i className="fas fa-lock"></i>
+            </div>
+            <div className="flex-1 text-left">
+              <h3 className="text-lg font-black text-red-600 mb-1 uppercase tracking-tight">Admission Journey Locked</h3>
+              <p className="text-sm font-bold text-red-800 dark:text-red-400 mb-1">
+                A monthly installment payment could not be deducted.
+              </p>
+              <p className="text-xs text-red-700 dark:text-red-300 leading-relaxed font-medium">
+                Continuing the service without payment is illegal. Please update your payment method and clear the pending installment immediately to unlock your journey. Failure to pay may result in legal action and termination of service.
+              </p>
+            </div>
+            {!isExpert && (
+              <button 
+                onClick={() => alert("Please contact support to resolve your payment issue.")}
+                className="w-full md:w-auto px-8 py-3.5 bg-red-600 text-white rounded-xl font-black text-[10px] uppercase tracking-[0.2em] shadow-lg shadow-red-500/30 hover:bg-red-700 transition active:scale-95"
+              >
+                Resolve Payment
+              </button>
+            )}
+          </div>
+        )}
 
         <div className="bg-white dark:bg-slate-800 rounded-[2.5rem] p-8 md:p-10 shadow-sm border border-gray-100 dark:border-slate-700">
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-10 pb-10 border-b border-gray-50 dark:border-slate-700 text-left">

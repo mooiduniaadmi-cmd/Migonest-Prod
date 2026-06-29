@@ -52,6 +52,10 @@ CREATE TABLE service_requests (
   visa_status visa_outcome DEFAULT 'PENDING',
   fee NUMERIC(10,2) DEFAULT 599.00,
   platform_fee_pct NUMERIC DEFAULT 20,
+  payment_plan TEXT DEFAULT 'ONE_TIME', -- 'ONE_TIME' or 'INSTALLMENTS'
+  installments_paid INTEGER DEFAULT 0,
+  stripe_subscription_id TEXT,
+  is_locked BOOLEAN DEFAULT false,
   questionnaire JSONB,
   agreements JSONB,
   hiring_documents JSONB,

@@ -171,12 +171,17 @@ app.post('/api/stripe-webhook', express.raw({ type: 'application/json' }), async
 
         try {
             const supabase = createClient(process.env.SUPABASE_URL || 'https://gwengahnqgvwoletcovl.supabase.co', process.env.SUPABASE_SERVICE_ROLE_KEY || '');
-            if (type === 'HIRE' && requestId) {
-                const { data: updatedData } = await supabase.from('service_requests').update({ status: 'PAID' }).eq('id', requestId).select();
+            if ((type === 'HIRE' || type === 'HIRE_INSTALLMENT') && requestId) {
+                const updatePayload: any = { status: 'PAID' };
+                if (type === 'HIRE_INSTALLMENT' && session.subscription) {
+                    updatePayload.stripe_subscription_id = session.subscription as string;
+                }
+                const { data: updatedData } = await supabase.from('service_requests').update(updatePayload).eq('id', requestId).select();
                 
                 if (updatedData && updatedData.length > 0) {
-                    const TOTAL_FEE = 599; 
-                    const expertPayout = TOTAL_FEE * 0.4;
+                    if (type === 'HIRE') {
+                        const TOTAL_FEE = 599; 
+                        const expertPayout = TOTAL_FEE * 0.4;
                     
                     const { data: studentProfile } = await supabase.from('profiles').select('full_name, avatar_url').eq('id', studentId).single();
                     const { data: expertProfile } = await supabase.from('profiles').select('full_name, avatar_url').eq('id', expertId).single();
@@ -220,6 +225,15 @@ app.post('/api/stripe-webhook', express.raw({ type: 'application/json' }), async
                         { user_id: studentId, title: 'Expert Hired', message: `You have successfully hired ${expertProfile?.full_name || 'an expert'}. Journey started!`, type: 'WALLET' },
                         { user_id: expertId, title: 'New Hire!', message: `Your admission journey with ${studentProfile?.full_name || 'a student'} has started.`, type: 'ADMISSION' }
                     ]);
+                    } else if (type === 'HIRE_INSTALLMENT') {
+                        // The actual wallet distribution for installments happens in invoice.paid
+                        const { data: studentProfile } = await supabase.from('profiles').select('full_name, avatar_url').eq('id', studentId).single();
+                        const { data: expertProfile } = await supabase.from('profiles').select('full_name, avatar_url').eq('id', expertId).single();
+                        await supabase.from('notifications').insert([
+                            { user_id: studentId, title: 'Expert Hired (Installments)', message: `You have successfully hired ${expertProfile?.full_name || 'an expert'}. Journey started!`, type: 'WALLET' },
+                            { user_id: expertId, title: 'New Hire!', message: `Your admission journey with ${studentProfile?.full_name || 'a student'} has started on an installment plan.`, type: 'ADMISSION' }
+                        ]);
+                    }
                 }
             } else if (type === 'SUBSCRIPTION' && userId) {
                 await supabase.from('profiles').update({ is_subscribed: true }).eq('id', userId);
@@ -280,19 +294,60 @@ app.post('/api/stripe-webhook', express.raw({ type: 'application/json' }), async
         }
     } else if (event.type === 'invoice.paid') {
         const invoice = event.data.object as any;
-        if (invoice.subscription && invoice.billing_reason === 'subscription_cycle') {
+        if (invoice.subscription) {
             const subscriptionId = invoice.subscription as string;
             try {
                 const supabase = createClient(process.env.SUPABASE_URL || 'https://gwengahnqgvwoletcovl.supabase.co', process.env.SUPABASE_SERVICE_ROLE_KEY || '');
                 const sub = await stripe.subscriptions.retrieve(subscriptionId) as any;
-                const userId = sub.metadata?.migonest_user_id || sub.metadata?.userId;
                 
-                if (userId) {
-                    await supabase.from('profiles').update({ 
-                        is_subscribed: true,
-                        subscription_id: subscriptionId,
-                        current_period_end: sub.current_period_end
-                    }).eq('id', userId);
+                if (sub.metadata?.type === 'HIRE_INSTALLMENT') {
+                    const { expertId, studentId, requestId } = sub.metadata;
+                    
+                    const { data: sr } = await supabase.from('service_requests').select('installments_paid').eq('id', requestId).single();
+                    const newCount = (sr?.installments_paid || 0) + 1;
+                    
+                    await supabase.from('service_requests').update({ 
+                        installments_paid: newCount,
+                        is_locked: false
+                    }).eq('id', requestId);
+                    
+                    const INSTALLMENT_TOTAL = 119.80;
+                    const expertPayout = INSTALLMENT_TOTAL * 0.4;
+                    
+                    const { data: studentProfile } = await supabase.from('profiles').select('full_name, avatar_url').eq('id', studentId).single();
+                    const { data: expertProfile } = await supabase.from('profiles').select('full_name, avatar_url').eq('id', expertId).single();
+
+                    await supabase.from('wallet_entries').insert({
+                        profile_id: studentId, amount: -INSTALLMENT_TOTAL, type: 'PAYMENT',
+                        description: `Installment ${newCount}/5 for Expert: ${expertProfile?.full_name || 'Expert'}`, status: 'COMPLETED',
+                        request_id: requestId, counterparty_id: expertId, counterparty_name: expertProfile?.full_name,
+                        counterparty_role: 'EXPERT', counterparty_avatar_url: expertProfile?.avatar_url,
+                        university: 'Migonest Admission', country: 'Global'
+                    });
+
+                    await supabase.from('wallet_entries').insert({
+                        profile_id: expertId, amount: expertPayout, type: 'EARNING',
+                        description: `Release (Installment ${newCount}/5) for Journey with ${studentProfile?.full_name || 'Student'}`, status: 'COMPLETED',
+                        request_id: requestId, counterparty_id: studentId, counterparty_name: studentProfile?.full_name,
+                        counterparty_role: 'STUDENT', counterparty_avatar_url: studentProfile?.avatar_url,
+                        university: 'Migonest Admission', country: 'Global'
+                    });
+
+                    await supabase.rpc('increment_wallet', { row_id: expertId, val: expertPayout });
+                    
+                    if (newCount >= 5) {
+                        console.log(`[Stripe Webhook] 5th installment paid. Cancelling subscription ${subscriptionId}`);
+                        await stripe.subscriptions.cancel(subscriptionId);
+                    }
+                } else if (invoice.billing_reason === 'subscription_cycle') {
+                    const userId = sub.metadata?.migonest_user_id || sub.metadata?.userId;
+                    if (userId) {
+                        await supabase.from('profiles').update({ 
+                            is_subscribed: true,
+                            subscription_id: subscriptionId,
+                            current_period_end: sub.current_period_end
+                        }).eq('id', userId);
+                    }
                 }
             } catch (err: any) {
                 console.error(`[Stripe Webhook] Renewal error: ${err.message}`);
@@ -303,12 +358,19 @@ app.post('/api/stripe-webhook', express.raw({ type: 'application/json' }), async
         const subscriptionId = invoice.subscription as string;
         
         if (subscriptionId) {
-            console.log(`[Stripe Webhook] Payment failed for invoice ${invoice.id}. Cancelling subscription ${subscriptionId} immediately.`);
             try {
-                // Cancel immediately so the user can resubscribe with a new payment method as requested
-                await stripe.subscriptions.cancel(subscriptionId);
+                const sub = await stripe.subscriptions.retrieve(subscriptionId) as any;
+                if (sub.metadata?.type === 'HIRE_INSTALLMENT') {
+                    const requestId = sub.metadata.requestId;
+                    console.log(`[Stripe Webhook] Installment failed. Locking journey ${requestId}`);
+                    const supabase = createClient(process.env.SUPABASE_URL || 'https://gwengahnqgvwoletcovl.supabase.co', process.env.SUPABASE_SERVICE_ROLE_KEY || '');
+                    await supabase.from('service_requests').update({ is_locked: true }).eq('id', requestId);
+                } else {
+                    console.log(`[Stripe Webhook] Payment failed for invoice ${invoice.id}. Cancelling subscription ${subscriptionId} immediately.`);
+                    await stripe.subscriptions.cancel(subscriptionId);
+                }
             } catch (err: any) {
-                console.error(`[Stripe Webhook] Error cancelling subscription ${subscriptionId} on payment failure: ${err.message}`);
+                console.error(`[Stripe Webhook] Error on payment failure logic: ${err.message}`);
             }
         }
     }

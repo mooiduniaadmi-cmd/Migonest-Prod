@@ -9,7 +9,7 @@ interface Props {
   expert: Profile;
   user: Profile;
   onClose: () => void;
-  onConfirm: (data: { formData: any, agreements: any, uploadedFiles: { passport: File[], residency: File[], education: File[] } }) => void;
+  onConfirm: (data: { formData: any, agreements: any, paymentPlan: 'ONE_TIME' | 'INSTALLMENTS', uploadedFiles: { passport: File[], residency: File[], education: File[] } }) => void;
   isSubmittingExternal?: boolean;
   isIOSNative?: boolean;
 }
@@ -75,6 +75,7 @@ export const HiringWizardModal: React.FC<Props> = ({ expert, user, onClose, onCo
   const [tempUni, setTempUni] = useState('');
   const [tempTargetDegree, setTempTargetDegree] = useState(user.targetDegree?.[0] || '');
   const [activeSearchField, setActiveSearchField] = useState<'home' | 'current' | 'languages' | 'targets' | null>(null);
+  const [paymentPlan, setPaymentPlan] = useState<'ONE_TIME' | 'INSTALLMENTS'>('ONE_TIME');
 
   const [agreements, setAgreements] = useState({
     maxLimit: false,
@@ -201,6 +202,7 @@ export const HiringWizardModal: React.FC<Props> = ({ expert, user, onClose, onCo
         targetDegree: formData.targetDegree.join(', ')
       },
       agreements,
+      paymentPlan,
       uploadedFiles: {
         passport: passportFiles.files,
         residency: residencyFiles.files,
@@ -519,10 +521,39 @@ export const HiringWizardModal: React.FC<Props> = ({ expert, user, onClose, onCo
               </div>
             </div>
 
+            <div className="space-y-4 mb-6">
+              <h4 className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Select Payment Plan</h4>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div 
+                  onClick={() => setPaymentPlan('ONE_TIME')}
+                  className={`p-4 rounded-xl border-2 cursor-pointer transition-all ${paymentPlan === 'ONE_TIME' ? 'border-brand-500 bg-brand-50 dark:bg-brand-900/20' : 'border-gray-200 dark:border-slate-700 hover:border-brand-300'}`}
+                >
+                  <div className="flex justify-between items-start mb-1">
+                    <span className="text-xs font-black text-slate-900 dark:text-white uppercase tracking-wider">Pay in Full</span>
+                    {paymentPlan === 'ONE_TIME' && <i className="fas fa-check-circle text-brand-500"></i>}
+                  </div>
+                  <div className="text-lg font-black text-brand-600 mb-2">${SERVICE_FEE}</div>
+                  <p className="text-[10px] text-slate-500 leading-relaxed font-medium">One-time payment. Escrow securely holds funds until visa outcome.</p>
+                </div>
+                
+                <div 
+                  onClick={() => setPaymentPlan('INSTALLMENTS')}
+                  className={`p-4 rounded-xl border-2 cursor-pointer transition-all ${paymentPlan === 'INSTALLMENTS' ? 'border-brand-500 bg-brand-50 dark:bg-brand-900/20' : 'border-gray-200 dark:border-slate-700 hover:border-brand-300'}`}
+                >
+                  <div className="flex justify-between items-start mb-1">
+                    <span className="text-xs font-black text-slate-900 dark:text-white uppercase tracking-wider">5 Monthly Installments</span>
+                    {paymentPlan === 'INSTALLMENTS' && <i className="fas fa-check-circle text-brand-500"></i>}
+                  </div>
+                  <div className="text-lg font-black text-brand-600 mb-2">${(SERVICE_FEE / 5).toFixed(2)}<span className="text-[10px] text-slate-500"> /mo</span></div>
+                  <p className="text-[10px] text-slate-500 leading-relaxed font-medium">Split over 5 months. Journey will lock if a monthly payment fails.</p>
+                </div>
+              </div>
+            </div>
+
             <div className="space-y-4">
               <ConditionToggle checked={agreements.maxLimit} onChange={() => setAgreements({ ...agreements, maxLimit: !agreements.maxLimit })} label="I understand this assistance covers a maximum of 4 universities/countries." />
               <ConditionToggle checked={agreements.noResponsibility} onChange={() => setAgreements({ ...agreements, noResponsibility: !agreements.noResponsibility })} label="I agree that while guidance is professional, the final visa/admission result is decided by authorities." />
-              <ConditionToggle checked={agreements.refundPolicy} onChange={() => setAgreements({ ...agreements, refundPolicy: !agreements.refundPolicy })} label={`I accept the 20% ($${(SERVICE_FEE * 0.2).toFixed(2)}) automatic refund policy in case of a documented visa denial.`} />
+              <ConditionToggle checked={agreements.refundPolicy} onChange={() => setAgreements({ ...agreements, refundPolicy: !agreements.refundPolicy })} label={`I accept the automatic refund policy in case of a documented visa denial.`} />
             </div>
 
             <div className="flex gap-3 mt-8">
@@ -536,7 +567,7 @@ export const HiringWizardModal: React.FC<Props> = ({ expert, user, onClose, onCo
                   {isSubmitting || isSubmittingExternal ? (
                     <><i className="fas fa-circle-notch fa-spin"></i> Processing...</>
                   ) : (
-                    <><i className="fas fa-credit-card"></i> Pay ${SERVICE_FEE} via Stripe</>
+                    <><i className="fas fa-credit-card"></i> Pay {paymentPlan === 'ONE_TIME' ? `$${SERVICE_FEE}` : `$${(SERVICE_FEE / 5).toFixed(2)}`} via Stripe</>
                   )}
                 </button>
               ) : (

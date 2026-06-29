@@ -1750,7 +1750,8 @@ app.post('/api/hire', async (req, res) => {
         questionnaire: z.any(),
         agreements: z.any(),
         hiringDocuments: z.array(z.any()).optional().default([]),
-        platform: z.string().optional()
+        platform: z.string().optional(),
+        paymentPlan: z.enum(['ONE_TIME', 'INSTALLMENTS']).optional().default('ONE_TIME')
     });
 
     const validation = hireSchema.safeParse(req.body);
@@ -1760,8 +1761,9 @@ app.post('/api/hire', async (req, res) => {
         return;
     }
 
-    const { studentId, expertId, questionnaire, agreements, hiringDocuments, platform } = validation.data;
+    const { studentId, expertId, questionnaire, agreements, hiringDocuments, platform, paymentPlan } = validation.data;
     const TOTAL_FEE = 59900; // $599.00 in cents (Reverted)
+    const INSTALLMENT_FEE = 11980; // $119.80 in cents
 
     try {
         const supabase = getSupabase(req);
@@ -1824,6 +1826,7 @@ app.post('/api/hire', async (req, res) => {
             status: 'PENDING_PAYMENT',
             current_step: 'REQUIREMENTS',
             fee: TOTAL_FEE / 100,
+            payment_plan: paymentPlan,
             questionnaire,
             agreements
         }).select().single();
@@ -1876,7 +1879,10 @@ app.post('/api/hire', async (req, res) => {
         
         try {
             const stripeInstance = getStripe(req);
-            const session = await stripeInstance.checkout.sessions.create({
+            
+            const isInstallment = paymentPlan === 'INSTALLMENTS';
+            
+            let sessionConfig: Stripe.Checkout.SessionCreateParams = {
                 customer_email: studentProfile?.email || undefined,
                 payment_method_types: ['card'],
                 line_items: [{
@@ -1884,22 +1890,38 @@ app.post('/api/hire', async (req, res) => {
                         currency: 'usd',
                         product_data: { 
                             name: `Expert Hire: ${expertProfile?.full_name || 'Expert'}`,
-                            description: `Admission assistance journey with ${expertProfile?.full_name || 'Expert'}`
+                            description: isInstallment 
+                                ? `Admission assistance journey with ${expertProfile?.full_name || 'Expert'} (Installment 1 of 5)` 
+                                : `Admission assistance journey with ${expertProfile?.full_name || 'Expert'}`
                         },
-                        unit_amount: TOTAL_FEE,
+                        unit_amount: isInstallment ? INSTALLMENT_FEE : TOTAL_FEE,
+                        ...(isInstallment ? { recurring: { interval: 'month' } } : {})
                     },
                     quantity: 1,
                 }],
-                mode: 'payment',
+                mode: isInstallment ? 'subscription' : 'payment',
                 success_url: successUrl,
                 cancel_url: `${baseUrl}/admission?canceled=true&type=hire`,
                 metadata: {
-                    type: 'HIRE',
+                    type: isInstallment ? 'HIRE_INSTALLMENT' : 'HIRE',
                     studentId,
                     expertId,
                     requestId: request.id
                 }
-            });
+            };
+            
+            if (isInstallment) {
+                sessionConfig.subscription_data = {
+                    metadata: {
+                        type: 'HIRE_INSTALLMENT',
+                        studentId,
+                        expertId,
+                        requestId: request.id
+                    }
+                };
+            }
+
+            const session = await stripeInstance.checkout.sessions.create(sessionConfig);
             console.log('[Hire] Stripe session created:', session.id);
             res.json({ success: true, url: session.url, requestId: request.id });
         } catch (stripeErr: any) {

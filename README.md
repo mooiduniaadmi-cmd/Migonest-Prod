@@ -10,11 +10,18 @@ Migonest utilizes a **Hybrid Backend Architecture**:
 
 ## 2. Core Business Logic
 
-### The Escrow System ($599.00 Fee)
-When a student hires an expert, the custom backend executes a three-way split:
-1. **20% ($119.80):** Retained conceptually by the platform.
-2. **40% ($239.60):** Released immediately to the Expert's wallet to initiate work.
-3. **40% ($239.60):** Held in **Escrow** (tracked via the `service_requests.fee` and `wallet_entries`).
+### The Escrow System & Payment Plans
+
+Students can hire an expert using one of two payment plans:
+1. **One-Time Payment ($599.00)**
+2. **5-Month Installment Plan ($119.80/month)**
+
+Regardless of the payment plan chosen, the funds are distributed proportionally on every successful payment:
+- **20% (e.g., $119.80 total or $23.96/month):** Retained conceptually by the platform (Service Fee).
+- **40% (e.g., $239.60 total or $47.92/month):** Released immediately to the Expert's wallet to initiate/continue work.
+- **40% (e.g., $239.60 total or $47.92/month):** Held in **Escrow** (tracked via the `service_requests.fee` and `wallet_entries`) pending the final Visa outcome.
+
+*Note on Installments:* If a student fails to pay a monthly installment, their admission journey is automatically locked until the payment method is updated and the charge succeeds.
 
 ### The 8-Stage Handshake
 Admissions progress through 8 stages (Requirements -> ... -> Accommodation).

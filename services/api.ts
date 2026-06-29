@@ -364,8 +364,14 @@ export const api = {
         timestamp: h.timestamp,
         uploadedBy: h.uploadedBy || h.uploaded_by
       })),
+      type: 'FULL_ASSISTANCE',
+      fee: data.fee,
       platformFeePct: data.platform_fee_pct,
-      hiringDocuments: data.hiring_documents || [],
+      paymentPlan: data.payment_plan,
+      installmentsPaid: data.installments_paid,
+      stripeSubscriptionId: data.stripe_subscription_id,
+      isLocked: data.is_locked,
+      date: new Date(data.created_at).toISOString().split('T')[0],
       student: data.student ? {
         fullName: data.student.full_name,
         avatarUrl: data.student.avatar_url,
@@ -787,7 +793,7 @@ export const api = {
     return result.request;
   },
 
-  async initiateExpertHire(payload: { studentId: string, expertId: string, questionnaire: any, agreements: any, hiringDocuments: any[], platform?: string }): Promise<{ success: boolean, url?: string, requestId?: string }> {
+  async initiateExpertHire(payload: { studentId: string, expertId: string, questionnaire: any, agreements: any, hiringDocuments: any[], platform?: string, paymentPlan?: string }): Promise<{ success: boolean, url?: string, requestId?: string }> {
     return await withTimeout<{ success: boolean, url?: string, requestId?: string }>(request('/hire', {
       method: 'POST',
       body: JSON.stringify(payload)

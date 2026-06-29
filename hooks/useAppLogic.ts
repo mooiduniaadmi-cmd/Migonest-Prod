@@ -2023,7 +2023,8 @@ export const useAppLogic = () => {
         questionnaire: data.formData,
         agreements: data.agreements,
         hiringDocuments: uploadedHiringDocs,
-        platform: isNative ? 'native' : undefined
+        platform: isNative ? 'native' : undefined,
+        paymentPlan: data.paymentPlan
       });
 
       if (res.url) {

@@ -156,6 +156,10 @@ export interface ServiceRequest {
   type: 'FULL_ASSISTANCE';
   fee: number;
   platformFeePct: number;
+  paymentPlan?: 'ONE_TIME' | 'INSTALLMENTS';
+  installmentsPaid?: number;
+  stripeSubscriptionId?: string;
+  isLocked?: boolean;
   date: string;
   milestoneDates?: Record<string, string>;
   documents: Document[];
