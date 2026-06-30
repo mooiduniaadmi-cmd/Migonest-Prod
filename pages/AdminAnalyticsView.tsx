@@ -71,14 +71,21 @@ export function AdminAnalyticsView() {
 
             <div className="bg-white p-6 rounded-2xl shadow mb-8 h-96">
                 <h3 className="font-bold mb-4">Event Frequency</h3>
-                <ResponsiveContainer width="100%" height="100%">
-                    <BarChart data={chartData}>
-                        <XAxis dataKey="name" fontSize={10} />
-                        <YAxis />
-                        <Tooltip />
-                        <Bar dataKey="count" fill="#4f46e5" radius={[4,4,0,0]} />
-                    </BarChart>
-                </ResponsiveContainer>
+                {chartData.length > 0 ? (
+                    <ResponsiveContainer width="100%" height="100%">
+                        <BarChart data={chartData}>
+                            <XAxis dataKey="name" fontSize={10} />
+                            <YAxis />
+                            <Tooltip />
+                            <Bar dataKey="count" fill="#4f46e5" radius={[4,4,0,0]} />
+                        </BarChart>
+                    </ResponsiveContainer>
+                ) : (
+                    <div className="w-full h-full flex flex-col items-center justify-center text-gray-400">
+                        <i className="fas fa-chart-bar text-4xl mb-3 opacity-50"></i>
+                        <p>No data available for chart</p>
+                    </div>
+                )}
             </div>
 
             <div className="bg-white p-6 rounded-2xl shadow overflow-hidden">
