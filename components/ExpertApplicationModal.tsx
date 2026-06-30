@@ -1,5 +1,5 @@
-
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo, useRef } from 'react';
+import { trackEvent } from "../services/analytics";
 import { createPortal } from 'react-dom';
 import { Profile } from '../types';
 import { Icons } from './Icons';
@@ -309,6 +309,7 @@ export const ExpertApplicationModal: React.FC<Props> = ({ user, isOpen, onClose,
           guideline: guidelineDocs
         }
       });
+      trackEvent('EXPERT_SIGNUP_COMPLETE');
     } catch (err: any) {
       console.error('Error processing application documents:', err);
       alert(err.message || "Error processing documents. Please try again.");

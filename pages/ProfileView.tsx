@@ -991,6 +991,16 @@ export const ProfileView: React.FC<Props> = ({
       <div className="flex justify-between items-center px-1">
         <h2 className="text-2xl font-bold">My Profile</h2>
         <div className="flex gap-2">
+          {isAdmin && (
+            <button
+              onClick={() => setView('ADMIN_ANALYTICS')}
+              className="w-10 h-10 flex items-center justify-center rounded-xl bg-slate-900 dark:bg-slate-700 text-white hover:bg-slate-800 transition"
+              title="Analytics Dashboard"
+            >
+              <i className="fas fa-chart-line"></i>
+            </button>
+          )}
+
           <button
             onClick={() => setView('CONNECTIONS')}
             className="w-10 h-10 flex items-center justify-center rounded-xl bg-gray-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:text-brand-600 transition"

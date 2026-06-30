@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { trackEvent } from '../services/analytics';
 import { Icons } from '../components/Icons';
 import { TermsModal } from '../components/TermsModal';
 import { PrivacyModal } from '../components/PrivacyModal';
@@ -240,7 +241,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
                       </div>
                     </>
                   )}
-                  <button onClick={onSignup} className="w-full mt-6 py-5 bg-brand-600 text-white rounded-2xl font-black text-lg shadow-xl hover:bg-brand-700 transition active:scale-95">Become an Expert</button>
+                  <button onClick={() => { trackEvent('EXPERT_SIGNUP_CLICK'); onSignup(); }} className="w-full mt-6 py-5 bg-brand-600 text-white rounded-2xl font-black text-lg shadow-xl hover:bg-brand-700 transition active:scale-95">Become an Expert</button>
                 </div>
               </div>
             </div>
@@ -412,7 +413,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
                 }
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start pt-6">
-                <button onClick={onSignup} className="px-10 py-5 bg-brand-600 text-white rounded-2xl font-black shadow-2xl hover:bg-brand-700 transition active:scale-95 flex items-center justify-center gap-2">Become a Uni Expert <i className="fas fa-check-circle"></i></button>
+                <button onClick={() => { trackEvent('EXPERT_SIGNUP_CLICK'); onSignup(); }} className="px-10 py-5 bg-brand-600 text-white rounded-2xl font-black shadow-2xl hover:bg-brand-700 transition active:scale-95 flex items-center justify-center gap-2">Become a Uni Expert <i className="fas fa-check-circle"></i></button>
               </div>
             </div>
             <div className="relative shrink-0 w-full max-w-md animate-fade-in-up">

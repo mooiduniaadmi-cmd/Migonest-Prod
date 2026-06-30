@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
+import { trackEvent } from "../services/analytics";
 import { api, createDefaultProfile, supabase, SERVICE_REQUEST_SELECT, safeGetSession, safeGetUser } from '../services/api';
 import { PaymentResultModal } from '../components/PaymentResultModal';
 import { Profile, Post, ServiceRequest, AppNotification, ChatMessage, ExpertApplication, AdmissionStep, Document, WalletEntry, MilestoneHistoryEntry } from '../types';
@@ -206,7 +207,15 @@ export const useAppLogic = () => {
   // UI States
   const [activeChatId, setActiveChatId] = useState<string | null>(null);
   const [selectedProfile, setSelectedProfile] = useState<Profile | null>(null);
-  const [hiringExpert, setHiringExpert] = useState<Profile | null>(null);
+  
+  const [hiringExpertState, setHiringExpertState] = useState<Profile | null>(null);
+  const setHiringExpert = (expert: Profile | null) => {
+    if (expert !== null) {
+      trackEvent('HIRE_EXPERT_CLICK', { expertId: expert.id });
+    }
+    setHiringExpertState(expert);
+  };
+  const hiringExpert = hiringExpertState;
   const [isSubModalOpen, setIsSubModalOpen] = useState(false);
   const [isPrivacyOpen, setIsPrivacyOpen] = useState(false);
   const [isTermsOpen, setIsTermsOpen] = useState(false);
@@ -2052,6 +2061,7 @@ export const useAppLogic = () => {
                     setAdmissionJourneys(merged);
                     return merged;
                   });
+                  trackEvent('HIRE_EXPERT_COMPLETE', { expertId: full.expertId });
                   setIsHiring(false);
                   setHiringExpert(null);
                   setActiveRequestId(full.id);
