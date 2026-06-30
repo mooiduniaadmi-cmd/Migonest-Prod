@@ -122,6 +122,8 @@ export const ViewRouter: React.FC<any> = (props) => {
       return <HomeView user={currentUser} posts={posts} onPost={handleCreatePost} setView={navigateTo} onDeletePost={handleDeletePost} onEditPost={handleEditPost} onToggleConnect={handleToggleConnect} onViewProfile={handleViewProfile} experts={expertsList} students={studentsList} admin={expertsList.find(e => e.role === 'ADMIN')} defaultStudent={studentsList[0]} likedPostIds={likedPostIds || []} repostedPostIds={repostedPostIds || []} recommendedProfiles={recommendedProfiles} hasMorePosts={hasMorePosts} isFetchingMorePosts={isFetchingMorePosts} onLoadMorePosts={handleLoadMorePosts} />;
     case 'ADMIN_WITHDRAWALS':
       return <AdminWithdrawalView admin={currentUser} setView={navigateTo} isIOSNative={isIOSNative} />;
+    case 'ADMIN_ANALYTICS':
+      return <AdminAnalyticsView />;
     case 'PROFILE':
       return <ProfileView
         user={selectedProfile || currentUser}
