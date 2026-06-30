@@ -383,3 +383,7 @@ CREATE POLICY "Anyone can insert analytics" ON public.analytics_events
     FOR INSERT
     WITH CHECK (true);
 
+
+-- Add privacy flags for DOB and Gender
+ALTER TABLE public.profiles ADD COLUMN IF NOT EXISTS is_dob_private BOOLEAN DEFAULT false;
+ALTER TABLE public.profiles ADD COLUMN IF NOT EXISTS is_gender_private BOOLEAN DEFAULT false;
