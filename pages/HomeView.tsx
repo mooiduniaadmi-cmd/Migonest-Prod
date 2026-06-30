@@ -154,6 +154,26 @@ export const HomeView: React.FC<Props> = ({ user, setView, posts, onPost, onDele
       )}
 
       <div className="lg:col-span-8 space-y-8">
+        {user.role === 'ADMIN' && (
+          <div className="block lg:hidden bg-white dark:bg-slate-800 p-6 rounded-3xl border border-brand-100 dark:border-brand-900/30 shadow-sm border-l-4 border-l-brand-600 mb-8">
+            <h4 className="font-bold text-lg mb-2 text-left flex items-center gap-2">
+              <Icons.Shield /> Admin Control
+            </h4>
+            <p className="text-[10px] text-slate-500 mb-4 font-medium uppercase tracking-widest">Platform Management (Mobile)</p>
+            <button 
+              onClick={() => setView('ADMIN_WITHDRAWALS')}
+              className="w-full py-4 bg-brand-600 text-white font-black text-xs uppercase tracking-widest rounded-2xl shadow-xl shadow-brand-500/20 hover:bg-brand-700 transition active:scale-95 flex items-center justify-center gap-2 mb-3"
+            >
+              <Icons.Money /> Approve Withdrawals
+            </button>
+            <button 
+              onClick={() => setView('ADMIN_ANALYTICS')}
+              className="w-full py-4 bg-slate-900 text-white font-black text-xs uppercase tracking-widest rounded-2xl shadow-xl hover:bg-slate-800 transition active:scale-95 flex items-center justify-center gap-2"
+            >
+              <i className="fas fa-chart-line"></i> Analytics Dashboard
+            </button>
+          </div>
+        )}
 
         <div>
 
