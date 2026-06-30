@@ -1,4 +1,6 @@
 export type AnalyticsEventName =
+    | 'LOGIN_CLICK'
+    | 'LOGIN_COMPLETE'
     | 'SIGNUP_CLICK'
     | 'SIGNUP_COMPLETE'
     | 'EXPERT_SIGNUP_CLICK'

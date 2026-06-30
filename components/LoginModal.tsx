@@ -1,5 +1,5 @@
-
 import React, { useState, useEffect } from 'react';
+import { trackEvent } from '../services/analytics';
 import { Icons } from './Icons';
 import { api, supabase } from '../services/api';
 
@@ -63,6 +63,7 @@ export const LoginModal: React.FC<Props> = ({ isOpen, onClose, onSuccess, onSwit
 
     try {
       await api.signIn(email, password);
+      trackEvent('LOGIN_COMPLETE');
       onSuccess();
     } catch (err: any) {
       const errorMsg = err.message || '';

@@ -294,14 +294,14 @@ export const AuthShell: React.FC<any> = (props) => {
     <div className="relative w-full min-h-full bg-white dark:bg-slate-900 transition-colors duration-200 overflow-x-hidden">
       {isProtectedPath ? (
         <SharedContentAuthGate
-          onLogin={() => setIsLoginModalOpen(true)}
+          onLogin={() => { setIsLoginModalOpen(true); trackEvent('LOGIN_CLICK'); }}
           onSignup={() => { setIsSignupModalOpen(true); trackEvent('SIGNUP_CLICK'); }}
           isDark={isDark}
           toggleTheme={toggleTheme}
         />
       ) : (
         <LandingPage
-          onLogin={() => setIsLoginModalOpen(true)}
+          onLogin={() => { setIsLoginModalOpen(true); trackEvent('LOGIN_CLICK'); }}
           onSignup={() => { setIsSignupModalOpen(true); trackEvent('SIGNUP_CLICK'); }}
           isDark={isDark}
           toggleTheme={toggleTheme}
@@ -333,7 +333,7 @@ export const AuthShell: React.FC<any> = (props) => {
             currentUser={currentUser}
             isEmailSent={isEmailSent}
             setIsEmailSent={setIsEmailSent}
-            onSwitchToLogin={() => { setIsSignupModalOpen(false); setIsLoginModalOpen(true); }}
+            onSwitchToLogin={() => { setIsSignupModalOpen(false); { setIsLoginModalOpen(true); trackEvent('LOGIN_CLICK'); }; }}
           />
         </>
       )}

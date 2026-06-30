@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { trackEvent } from '../services/analytics';
 import { TermsModal } from './TermsModal';
 import { PrivacyModal } from './PrivacyModal';
 import { api, supabase } from '../services/api';
@@ -102,6 +103,7 @@ export const SignupModal: React.FC<Props> = ({ isOpen, onClose, onSuccess, onSwi
       await api.signUp(email, password, {
         full_name: fullName
       });
+      trackEvent('SIGNUP_COMPLETE');
       setIsEmailSent(true);
     } catch (err: any) {
       setError(err.message || 'Registration failed. Please try again.');

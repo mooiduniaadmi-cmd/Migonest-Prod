@@ -94,31 +94,53 @@ export function AdminAnalyticsView() {
                 </div>
                 
                 <div className="overflow-x-auto">
-                    <table className="min-w-full divide-y divide-gray-200 text-sm">
-                        <thead>
-                            <tr>
-                                <th className="px-4 py-3 text-left font-semibold text-gray-900">Time</th>
-                                <th className="px-4 py-3 text-left font-semibold text-gray-900">Event</th>
-                                <th className="px-4 py-3 text-left font-semibold text-gray-900">Location</th>
-                                <th className="px-4 py-3 text-left font-semibold text-gray-900">Device</th>
-                            </tr>
-                        </thead>
-                        <tbody className="divide-y divide-gray-200">
-                            {displayedEvents.map((e, index) => {
-                                const isLast = index === displayedEvents.length - 1;
-                                return (
-                                    <tr key={e.id} ref={isLast ? lastElementRef : null}>
-                                        <td className="px-4 py-3 text-gray-500 whitespace-nowrap">{new Date(e.created_at).toLocaleString()}</td>
-                                        <td className="px-4 py-3 font-medium text-brand-600 whitespace-nowrap">{e.event_name}</td>
-                                        <td className="px-4 py-3 text-gray-500">{e.city ? `${e.city}, ${e.country}` : e.country || 'Unknown'}</td>
-                                        <td className="px-4 py-3 text-gray-500">{e.device_type} - {e.browser}</td>
-                                    </tr>
-                                );
-                            })}
-                        </tbody>
-                    </table>
+                    {displayedEvents.length === 0 ? (
+                        <div className="text-center py-16 px-4">
+                            <div className="w-16 h-16 bg-gray-50 dark:bg-slate-800 text-gray-400 rounded-full flex items-center justify-center mx-auto mb-4 text-2xl">
+                                <i className="fas fa-search"></i>
+                            </div>
+                            <h4 className="font-bold text-gray-900 dark:text-white mb-2">No events found</h4>
+                            <p className="text-sm text-gray-500 max-w-sm mx-auto">
+                                {searchTerm 
+                                    ? `We couldn't find any events matching "${searchTerm}". Try a different keyword.` 
+                                    : "There are no analytics events recorded yet. Once users start interacting with the platform, data will appear here."}
+                            </p>
+                            {searchTerm && (
+                                <button 
+                                    onClick={() => { setSearchTerm(''); setDisplayCount(20); }}
+                                    className="mt-6 px-6 py-2 bg-brand-50 text-brand-600 font-bold rounded-xl hover:bg-brand-100 transition"
+                                >
+                                    Clear Search
+                                </button>
+                            )}
+                        </div>
+                    ) : (
+                        <table className="min-w-full divide-y divide-gray-200 text-sm">
+                            <thead>
+                                <tr>
+                                    <th className="px-4 py-3 text-left font-semibold text-gray-900">Time</th>
+                                    <th className="px-4 py-3 text-left font-semibold text-gray-900">Event</th>
+                                    <th className="px-4 py-3 text-left font-semibold text-gray-900">Location</th>
+                                    <th className="px-4 py-3 text-left font-semibold text-gray-900">Device</th>
+                                </tr>
+                            </thead>
+                            <tbody className="divide-y divide-gray-200">
+                                {displayedEvents.map((e, index) => {
+                                    const isLast = index === displayedEvents.length - 1;
+                                    return (
+                                        <tr key={e.id} ref={isLast ? lastElementRef : null}>
+                                            <td className="px-4 py-3 text-gray-500 whitespace-nowrap">{new Date(e.created_at).toLocaleString()}</td>
+                                            <td className="px-4 py-3 font-medium text-brand-600 whitespace-nowrap">{e.event_name}</td>
+                                            <td className="px-4 py-3 text-gray-500">{e.city ? `${e.city}, ${e.country}` : e.country || 'Unknown'}</td>
+                                            <td className="px-4 py-3 text-gray-500">{e.device_type} - {e.browser}</td>
+                                        </tr>
+                                    );
+                                })}
+                            </tbody>
+                        </table>
+                    )}
                     
-                    {displayCount < filteredEvents.length && (
+                    {displayCount < filteredEvents.length && displayedEvents.length > 0 && (
                         <div className="text-center py-6">
                             <button 
                                 onClick={() => setDisplayCount(prev => prev + 20)}

@@ -55,7 +55,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
               {isDark ? <Icons.Sun /> : <Icons.Moon />}
             </button>
             <div className="flex items-center gap-3 sm:gap-8">
-              <button onClick={onLogin} className="text-sm font-bold text-slate-600 dark:text-slate-400 hover:text-brand-600 transition">Log in</button>
+              <button onClick={() => { trackEvent('LOGIN_CLICK'); onLogin(); }} className="text-sm font-bold text-slate-600 dark:text-slate-400 hover:text-brand-600 transition">Log in</button>
               <button onClick={onSignup} className="px-5 sm:px-8 py-2 sm:py-2.5 bg-brand-600 text-white rounded-full text-xs sm:text-sm font-black shadow-xl shadow-brand-500/20 hover:scale-105 transition active:scale-95 leading-none">Sign up</button>
             </div>
           </div>
