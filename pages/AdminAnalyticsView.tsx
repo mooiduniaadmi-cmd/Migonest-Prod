@@ -54,49 +54,49 @@ export function AdminAnalyticsView() {
 
     return (
         <div className="max-w-7xl mx-auto p-4 sm:p-6 lg:p-8">
-            <h1 className="text-3xl font-black mb-8">Analytics Dashboard</h1>
+            <h1 className="text-3xl font-black mb-8 text-slate-900 dark:text-white">Analytics Dashboard</h1>
             
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-                <div className="bg-white p-6 rounded-2xl shadow">
-                    <h3 className="text-gray-500 text-sm font-bold uppercase tracking-wider">Total Filtered</h3>
-                    <p className="text-4xl font-black mt-2">{filteredEvents.length}</p>
+                <div className="bg-white dark:bg-slate-800 p-6 rounded-2xl shadow">
+                    <h3 className="text-gray-500 dark:text-slate-400 text-sm font-bold uppercase tracking-wider">Total Filtered</h3>
+                    <p className="text-4xl font-black mt-2 text-slate-900 dark:text-white">{filteredEvents.length}</p>
                 </div>
-                <div className="bg-white p-6 rounded-2xl shadow">
-                    <h3 className="text-gray-500 text-sm font-bold uppercase tracking-wider">Hire Clicks</h3>
-                    <p className="text-4xl font-black mt-2">{eventCounts['HIRE_EXPERT_CLICK'] || 0}</p>
+                <div className="bg-white dark:bg-slate-800 p-6 rounded-2xl shadow">
+                    <h3 className="text-gray-500 dark:text-slate-400 text-sm font-bold uppercase tracking-wider">Hire Clicks</h3>
+                    <p className="text-4xl font-black mt-2 text-slate-900 dark:text-white">{eventCounts['HIRE_EXPERT_CLICK'] || 0}</p>
                 </div>
-                <div className="bg-white p-6 rounded-2xl shadow">
-                    <h3 className="text-gray-500 text-sm font-bold uppercase tracking-wider">Expert Signups</h3>
-                    <p className="text-4xl font-black mt-2">{eventCounts['EXPERT_SIGNUP_CLICK'] || 0}</p>
+                <div className="bg-white dark:bg-slate-800 p-6 rounded-2xl shadow">
+                    <h3 className="text-gray-500 dark:text-slate-400 text-sm font-bold uppercase tracking-wider">Expert Signups</h3>
+                    <p className="text-4xl font-black mt-2 text-slate-900 dark:text-white">{eventCounts['EXPERT_SIGNUP_CLICK'] || 0}</p>
                 </div>
             </div>
 
-            <div className="bg-white p-6 rounded-2xl shadow mb-8 h-96">
-                <h3 className="font-bold mb-4">Event Frequency</h3>
+            <div className="bg-white dark:bg-slate-800 p-6 rounded-2xl shadow mb-8 h-96">
+                <h3 className="font-bold mb-4 text-slate-900 dark:text-white">Event Frequency</h3>
                 {chartData.length > 0 ? (
                     <ResponsiveContainer width="100%" height="100%">
                         <BarChart data={chartData}>
-                            <XAxis dataKey="name" fontSize={10} />
-                            <YAxis />
-                            <Tooltip />
+                            <XAxis dataKey="name" fontSize={10} stroke="#888888" />
+                            <YAxis stroke="#888888" />
+                            <Tooltip contentStyle={{ backgroundColor: '#1e293b', border: 'none', borderRadius: '8px', color: '#fff' }} />
                             <Bar dataKey="count" fill="#4f46e5" radius={[4,4,0,0]} />
                         </BarChart>
                     </ResponsiveContainer>
                 ) : (
-                    <div className="w-full h-full flex flex-col items-center justify-center text-gray-400">
+                    <div className="w-full h-full flex flex-col items-center justify-center text-gray-400 dark:text-slate-500">
                         <i className="fas fa-chart-bar text-4xl mb-3 opacity-50"></i>
                         <p>No data available for chart</p>
                     </div>
                 )}
             </div>
 
-            <div className="bg-white p-6 rounded-2xl shadow overflow-hidden">
+            <div className="bg-white dark:bg-slate-800 p-6 rounded-2xl shadow overflow-hidden">
                 <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-4">
-                    <h3 className="font-bold text-lg">Event Log</h3>
+                    <h3 className="font-bold text-lg text-slate-900 dark:text-white">Event Log</h3>
                     <input 
                         type="text" 
                         placeholder="Search by event name..." 
-                        className="px-4 py-2 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-500 w-full sm:w-64 outline-none"
+                        className="px-4 py-2 border border-gray-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-white rounded-xl focus:ring-2 focus:ring-brand-500 w-full sm:w-64 outline-none"
                         value={searchTerm}
                         onChange={e => { setSearchTerm(e.target.value); setDisplayCount(20); }}
                     />
@@ -124,24 +124,24 @@ export function AdminAnalyticsView() {
                             )}
                         </div>
                     ) : (
-                        <table className="min-w-full divide-y divide-gray-200 text-sm">
+                        <table className="min-w-full divide-y divide-gray-200 dark:divide-slate-700 text-sm">
                             <thead>
                                 <tr>
-                                    <th className="px-4 py-3 text-left font-semibold text-gray-900">Time</th>
-                                    <th className="px-4 py-3 text-left font-semibold text-gray-900">Event</th>
-                                    <th className="px-4 py-3 text-left font-semibold text-gray-900">Location</th>
-                                    <th className="px-4 py-3 text-left font-semibold text-gray-900">Device</th>
+                                    <th className="px-4 py-3 text-left font-semibold text-gray-900 dark:text-slate-300">Time</th>
+                                    <th className="px-4 py-3 text-left font-semibold text-gray-900 dark:text-slate-300">Event</th>
+                                    <th className="px-4 py-3 text-left font-semibold text-gray-900 dark:text-slate-300">Location</th>
+                                    <th className="px-4 py-3 text-left font-semibold text-gray-900 dark:text-slate-300">Device</th>
                                 </tr>
                             </thead>
-                            <tbody className="divide-y divide-gray-200">
+                            <tbody className="divide-y divide-gray-200 dark:divide-slate-700">
                                 {displayedEvents.map((e, index) => {
                                     const isLast = index === displayedEvents.length - 1;
                                     return (
-                                        <tr key={e.id} ref={isLast ? lastElementRef : null}>
-                                            <td className="px-4 py-3 text-gray-500 whitespace-nowrap">{new Date(e.created_at).toLocaleString()}</td>
-                                            <td className="px-4 py-3 font-medium text-brand-600 whitespace-nowrap">{e.event_name || 'UNKNOWN'}</td>
-                                            <td className="px-4 py-3 text-gray-500">{e.city ? `${e.city}, ${e.country}` : e.country || 'Unknown'}</td>
-                                            <td className="px-4 py-3 text-gray-500">{e.device_type} - {e.browser}</td>
+                                        <tr key={e.id} ref={isLast ? lastElementRef : null} className="hover:bg-gray-50 dark:hover:bg-slate-700/50 transition">
+                                            <td className="px-4 py-3 text-gray-500 dark:text-slate-400 whitespace-nowrap">{new Date(e.created_at).toLocaleString()}</td>
+                                            <td className="px-4 py-3 font-medium text-brand-600 dark:text-brand-400 whitespace-nowrap">{e.event_name || 'UNKNOWN'}</td>
+                                            <td className="px-4 py-3 text-gray-500 dark:text-slate-400">{e.city ? `${e.city}, ${e.country}` : e.country || 'Unknown'}</td>
+                                            <td className="px-4 py-3 text-gray-500 dark:text-slate-400">{e.device_type} - {e.browser}</td>
                                         </tr>
                                     );
                                 })}
@@ -153,7 +153,7 @@ export function AdminAnalyticsView() {
                         <div className="text-center py-6">
                             <button 
                                 onClick={() => setDisplayCount(prev => prev + 20)}
-                                className="px-6 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold rounded-xl transition"
+                                className="px-6 py-2 bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-300 font-bold rounded-xl transition"
                             >
                                 Load More
                             </button>
