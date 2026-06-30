@@ -47,8 +47,6 @@ export const SettingsView: React.FC<Props> = ({ user, setView, onLogout, onBack 
   // Editable Profile States
   const [dob, setDob] = useState(user.dob || '');
   const [gender, setGender] = useState(user.gender || '');
-  const [isDobPrivate, setIsDobPrivate] = useState(user.isDobPrivate ?? true);
-  const [isGenderPrivate, setIsGenderPrivate] = useState(user.isGenderPrivate ?? true);
   const [savingProfile, setSavingProfile] = useState(false);
   const [profileSuccess, setProfileSuccess] = useState(false);
 
@@ -159,8 +157,8 @@ export const SettingsView: React.FC<Props> = ({ user, setView, onLogout, onBack 
       await api.updateProfile(user.id, {
         dob: dob || null,
         gender: gender || null,
-        isDobPrivate,
-        isGenderPrivate
+        isDobPrivate: true,
+        isGenderPrivate: true
       });
       // Update parent state / local state if needed (since user is passed from props, the parent will usually trigger updates)
       setProfileSuccess(true);
@@ -219,15 +217,7 @@ export const SettingsView: React.FC<Props> = ({ user, setView, onLogout, onBack 
                 className="w-full px-4 py-3 bg-gray-50 dark:bg-slate-900 border border-gray-100 dark:border-slate-700 rounded-2xl text-sm outline-none focus:ring-2 focus:ring-brand-500 text-slate-900 dark:text-white cursor-default"
               />
             </div>
-            <label className="flex items-center gap-2 mt-1 pl-1">
-              <input
-                type="checkbox"
-                checked={isDobPrivate}
-                onChange={e => setIsDobPrivate(e.target.checked)}
-                className="rounded text-brand-600 focus:ring-brand-500 dark:bg-slate-900 border-gray-300 dark:border-slate-700"
-              />
-              <span className="text-[10px] font-black text-slate-450 dark:text-slate-500 uppercase tracking-wider">Make Date of Birth Private</span>
-            </label>
+            <p className="text-[10px] text-slate-500 mt-2 font-medium flex items-center gap-1.5"><i className="fas fa-lock text-slate-400"></i> Date of Birth is always private and never shared.</p>
           </div>
 
           <div className="space-y-3">
@@ -248,15 +238,7 @@ export const SettingsView: React.FC<Props> = ({ user, setView, onLogout, onBack 
                 <i className="fas fa-chevron-down absolute right-4 top-1/2 -translate-y-1/2 text-slate-350 pointer-events-none text-xs"></i>
               </div>
             </div>
-            <label className="flex items-center gap-2 mt-1 pl-1">
-              <input
-                type="checkbox"
-                checked={isGenderPrivate}
-                onChange={e => setIsGenderPrivate(e.target.checked)}
-                className="rounded text-brand-600 focus:ring-brand-500 dark:bg-slate-900 border-gray-300 dark:border-slate-700"
-              />
-              <span className="text-[10px] font-black text-slate-450 dark:text-slate-500 uppercase tracking-wider">Make Gender Private</span>
-            </label>
+            <p className="text-[10px] text-slate-500 mt-2 font-medium flex items-center gap-1.5"><i className="fas fa-lock text-slate-400"></i> Gender is always private and never shared.</p>
           </div>
 
           {profileSuccess && (
