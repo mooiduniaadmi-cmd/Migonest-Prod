@@ -21,9 +21,10 @@ export function AdminAnalyticsView() {
         fetchEvents();
     }, []);
 
-    const filteredEvents = events.filter(e => 
-        e.event_name.toLowerCase().includes(searchTerm.toLowerCase())
-    );
+    const filteredEvents = events.filter(e => {
+        const name = e.event_name || '';
+        return name.toLowerCase().includes(searchTerm.toLowerCase());
+    });
 
     const displayedEvents = filteredEvents.slice(0, displayCount);
 
@@ -41,7 +42,8 @@ export function AdminAnalyticsView() {
     if (loading) return <div className="p-10 text-center">Loading Analytics...</div>;
 
     const eventCounts = filteredEvents.reduce((acc, curr) => {
-        acc[curr.event_name] = (acc[curr.event_name] || 0) + 1;
+        const name = curr.event_name || 'UNKNOWN';
+        acc[name] = (acc[name] || 0) + 1;
         return acc;
     }, {} as Record<string, number>);
 
@@ -137,7 +139,7 @@ export function AdminAnalyticsView() {
                                     return (
                                         <tr key={e.id} ref={isLast ? lastElementRef : null}>
                                             <td className="px-4 py-3 text-gray-500 whitespace-nowrap">{new Date(e.created_at).toLocaleString()}</td>
-                                            <td className="px-4 py-3 font-medium text-brand-600 whitespace-nowrap">{e.event_name}</td>
+                                            <td className="px-4 py-3 font-medium text-brand-600 whitespace-nowrap">{e.event_name || 'UNKNOWN'}</td>
                                             <td className="px-4 py-3 text-gray-500">{e.city ? `${e.city}, ${e.country}` : e.country || 'Unknown'}</td>
                                             <td className="px-4 py-3 text-gray-500">{e.device_type} - {e.browser}</td>
                                         </tr>
