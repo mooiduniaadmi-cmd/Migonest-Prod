@@ -73,13 +73,29 @@ export const Sidebar: React.FC<SidebarProps> = ({ currentView, setView, user, ha
         )}
 
         {isAdmin && (
-          <NavItem
-            icon={<i className="fas fa-user-check"></i>}
-            label="Expert Reviews"
-            view="EXPERT_REVIEWS"
-            active={currentView === 'EXPERT_REVIEWS'}
-            onClick={setView}
-          />
+          <>
+            <NavItem
+              icon={<i className="fas fa-user-check"></i>}
+              label="Expert Reviews"
+              view="EXPERT_REVIEWS"
+              active={currentView === 'EXPERT_REVIEWS'}
+              onClick={setView}
+            />
+            <NavItem
+              icon={<Icons.Money />}
+              label="Withdrawals"
+              view="ADMIN_WITHDRAWALS"
+              active={currentView === 'ADMIN_WITHDRAWALS'}
+              onClick={setView}
+            />
+            <NavItem
+              icon={<i className="fas fa-chart-line"></i>}
+              label="Analytics"
+              view="ADMIN_ANALYTICS"
+              active={currentView === 'ADMIN_ANALYTICS'}
+              onClick={setView}
+            />
+          </>
         )}
       </nav>
 

@@ -73,6 +73,15 @@ export const BottomNav: React.FC<BottomNavProps> = ({ setView, currentView, role
               active={currentView === 'PROFILE'}
               onClick={() => setView('PROFILE')}
             />
+
+            {isAdmin && (
+              <NavBtn
+                icon={<i className="fas fa-chart-line"></i>}
+                label="Analytics"
+                active={currentView === 'ADMIN_ANALYTICS'}
+                onClick={() => setView('ADMIN_ANALYTICS')}
+              />
+            )}
           </div>
 
           {/* The "Nuclear" Background Extension - extra layer to cover any gaps below bottom-0 */}
