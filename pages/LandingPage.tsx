@@ -92,7 +92,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
               </div>
               <h1 className="text-5xl lg:text-7xl font-black leading-[1.1] text-slate-900 dark:text-white uppercase">
                 From Dream To Destination <br />
-                <span className="text-brand-600 dark:text-brand-500">Study Abroad.</span>
+                <span className="text-brand-600 dark:text-brand-500">Study Abroad with Migonest</span>
               </h1>
               <p className="text-xl text-slate-500 dark:text-slate-400 max-w-lg leading-relaxed font-medium">
                 Connect with "Uni Experts" who have lived your dream and use Migonest-powered roadmaps to secure your future.
