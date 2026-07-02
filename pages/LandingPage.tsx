@@ -431,9 +431,9 @@ export const LandingPage: React.FC<LandingPageProps> = ({
               <div className="text-lg text-slate-500 dark:text-slate-400 leading-relaxed font-medium space-y-4">
                 <p>Once you move abroad, share your journey and guide prospective students.</p>
                 <ul className="space-y-2 text-base text-slate-600 dark:text-slate-300">
-                  <li className="flex items-start gap-2"><i className="fas fa-check-circle text-brand-500 mt-1"></i> Earn money by guiding students with their study abroad journey.</li>
-                  <li className="flex items-start gap-2"><i className="fas fa-check-circle text-brand-500 mt-1"></i> Earn a <strong className="text-brand-600 dark:text-brand-400 font-black">$1.99 bonus</strong> whenever a user subscribes via your profile chat box.</li>
-                  <li className="flex items-start gap-2"><i className="fas fa-check-circle text-brand-500 mt-1"></i> Your knowledge brings value. Your success brings income.</li>
+                  <li className="flex items-start gap-2"><i className="fas fa-check-circle text-brand-500 mt-1"></i> <span>Earn money by guiding students with their study abroad journey.</span></li>
+                  <li className="flex items-start gap-2"><i className="fas fa-check-circle text-brand-500 mt-1"></i> <span>Earn a <strong className="text-brand-600 dark:text-brand-400 font-black">$1.99 bonus</strong> whenever a user subscribes via your profile chat box.</span></li>
+                  <li className="flex items-start gap-2"><i className="fas fa-check-circle text-brand-500 mt-1"></i> <span>Your knowledge brings value. Your success brings income.</span></li>
                 </ul>
                 {isIOSNative === false && (
                   <div className="p-5 bg-brand-50 dark:bg-brand-900/20 rounded-2xl mt-6 border border-brand-100 dark:border-brand-800">
