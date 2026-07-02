@@ -237,8 +237,15 @@ export const LandingPage: React.FC<LandingPageProps> = ({
             <div className="bg-slate-900 rounded-[3rem] p-10 lg:p-14 text-white relative overflow-hidden group hover:scale-[1.02] transition-all duration-500 shadow-2xl shadow-slate-900/20">
               <div className="absolute bottom-0 left-0 w-64 h-64 bg-brand-500/10 rounded-full -ml-20 -mb-20 blur-3xl group-hover:bg-brand-500/20 transition-colors"></div>
               <div className="relative z-10 flex flex-col h-full">
-                <span className="text-[10px] font-black uppercase tracking-[0.2em] mb-6 inline-block py-1.5 px-4 bg-brand-600 rounded-full self-start">BECOME A UNI EXPERT & EARN</span>
-                <h3 className="text-4xl lg:text-5xl font-black mb-6 leading-tight">Once you move abroad, share your journey.</h3>
+                <span className="text-[10px] font-black uppercase tracking-[0.2em] mb-4 inline-block py-1.5 px-4 bg-brand-600 rounded-full self-start">BECOME A UNI EXPERT & EARN</span>
+                <div className="mb-6">
+                  <p className="text-lg font-bold text-brand-100 leading-tight">
+                    Earn a <br/>
+                    <span className="text-4xl font-black text-brand-400 my-1 block">$1.99 bonus</span>
+                    whenever a user subscribes via your profile chat box.
+                  </p>
+                </div>
+                <h3 className="text-3xl lg:text-4xl font-black mb-4 leading-tight">Once you move abroad, share your journey.</h3>
                 <p className="text-slate-400 text-lg mb-8 font-medium leading-relaxed">
                   Earn money by guiding prospective students. Your knowledge brings value and your success brings income. You never lose the fee you paid; it gets back to you through earning!
                 </p>
