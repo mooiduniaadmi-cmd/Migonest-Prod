@@ -253,6 +253,10 @@ export const LandingPage: React.FC<LandingPageProps> = ({
                         <div className="w-8 h-8 bg-brand-600/20 rounded-full flex items-center justify-center text-brand-400"><i className="fas fa-check text-xs"></i></div>
                         <span className="font-bold">Automated milestone payouts</span>
                       </div>
+                      <div className="flex items-center gap-3">
+                        <div className="w-8 h-8 bg-brand-600/20 rounded-full flex items-center justify-center text-brand-400"><i className="fas fa-check text-xs"></i></div>
+                        <span className="font-bold">Earn a $1.99 bonus whenever a user subscribes via your profile chat box.</span>
+                      </div>
                     </>
                   )}
                   <button onClick={() => { trackEvent('EXPERT_SIGNUP_CLICK'); onSignup(); }} className="w-full mt-6 py-5 bg-brand-600 text-white rounded-2xl font-black text-lg shadow-xl hover:bg-brand-700 transition active:scale-95">Become an Expert</button>
