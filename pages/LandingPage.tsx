@@ -88,14 +88,14 @@ export const LandingPage: React.FC<LandingPageProps> = ({
           <div className="grid lg:grid-cols-2 gap-16 items-center">
             <div className="space-y-8 animate-fade-in-up">
               <div className="inline-flex items-center gap-2 px-4 py-2 bg-brand-50 dark:bg-brand-900/30 text-brand-600 dark:text-brand-300 rounded-full text-xs font-black uppercase tracking-widest border border-brand-100 dark:border-brand-800">
-                <i className="fas fa-graduation-cap"></i> Verified Student Success Platform
+                <i className="fas fa-graduation-cap"></i> GUIDANCE BY THOSE Who've Been There!
               </div>
-              <h1 className="text-5xl lg:text-7xl font-black leading-[1.1] text-slate-900 dark:text-white">
-                Study abroad with <br />
-                <span className="text-brand-600 dark:text-brand-500">Expert Confidence.</span>
+              <h1 className="text-5xl lg:text-7xl font-black leading-[1.1] text-slate-900 dark:text-white uppercase">
+                From Dream To Destination <br />
+                <span className="text-brand-600 dark:text-brand-500">Study Abroad.</span>
               </h1>
               <p className="text-xl text-slate-500 dark:text-slate-400 max-w-lg leading-relaxed font-medium">
-                Join the bridge between dreams and reality. Connect with "Uni Experts" who have lived your dream and use Migonest-powered roadmaps to secure your future.
+                Connect with "Uni Experts" who have lived your dream and use Migonest-powered roadmaps to secure your future.
               </p>
               <div className="flex flex-col gap-6 pt-4">
                 <button
@@ -169,21 +169,31 @@ export const LandingPage: React.FC<LandingPageProps> = ({
               <h2 className="text-4xl lg:text-5xl font-black text-slate-900 dark:text-white tracking-tight">Your path to admission, simplified.</h2>
               <p className="text-slate-500 dark:text-slate-400 max-w-2xl mx-auto text-lg">Migonest provides a structured environment where every document, payment, and milestone is tracked for your success.</p>
             </div>
-            <div className="grid md:grid-cols-3 gap-12">
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
               <FeatureItem
-                icon={<i className="fas fa-id-card-clip text-3xl"></i>}
-                title="Profile Recommendations"
-                desc="Receive personalized expert recommendations based on your academic background and target goals, ensuring you connect with the right mentor from day one."
+                icon={<i className="fas fa-university text-3xl"></i>}
+                title="University Selection"
+                desc="Find the right university for you."
               />
               <FeatureItem
-                icon={<i className="fas fa-user-check text-3xl"></i>}
-                title="Verified Expert Matching"
-                desc="Browse through a global network of vetted Uni Experts. Connect with someone who lives in your target city and has been through your target university."
+                icon={<i className="fas fa-file-alt text-3xl"></i>}
+                title="Admission & SOP Support"
+                desc="Expert help with applications & SOP."
               />
               <FeatureItem
-                icon={<i className="fas fa-map-marked-alt text-3xl"></i>}
-                title="8-Stage Roadmap"
-                desc="From document prep to visa interview and finding your first accommodation abroad, our collaborative board keeps you and your expert synced."
+                icon={<i className="fas fa-award text-3xl"></i>}
+                title="Scholarship Guidance"
+                desc="Find & apply for the best scholarships."
+              />
+              <FeatureItem
+                icon={<i className="fas fa-passport text-3xl"></i>}
+                title="Visa Assistance"
+                desc="Complete support for student visa."
+              />
+              <FeatureItem
+                icon={<i className="fas fa-home text-3xl"></i>}
+                title="Accommodation & Part-Time Jobs"
+                desc="Find accommodation & part-time jobs."
               />
             </div>
           </div>
@@ -206,11 +216,15 @@ export const LandingPage: React.FC<LandingPageProps> = ({
                     <>
                       <div className="flex items-center gap-3">
                         <div className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center"><i className="fas fa-check text-xs"></i></div>
-                        <span className="font-bold">Full Assistance Service Fee: $399.00</span>
+                        <span className="font-bold">Hire Expert with only $79.80</span>
                       </div>
                       <div className="flex items-center gap-3">
                         <div className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center"><i className="fas fa-check text-xs"></i></div>
-                        <span className="font-bold">20% Visa Denial Refund Guarantee</span>
+                        <span className="font-bold">Pay the rest in 4 Monthly Installments</span>
+                      </div>
+                      <div className="flex items-center gap-3">
+                        <div className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center"><i className="fas fa-check text-xs"></i></div>
+                        <span className="font-bold">20% Money Back if Visa Rejected</span>
                       </div>
                     </>
                   )}
@@ -223,10 +237,10 @@ export const LandingPage: React.FC<LandingPageProps> = ({
             <div className="bg-slate-900 rounded-[3rem] p-10 lg:p-14 text-white relative overflow-hidden group hover:scale-[1.02] transition-all duration-500 shadow-2xl shadow-slate-900/20">
               <div className="absolute bottom-0 left-0 w-64 h-64 bg-brand-500/10 rounded-full -ml-20 -mb-20 blur-3xl group-hover:bg-brand-500/20 transition-colors"></div>
               <div className="relative z-10 flex flex-col h-full">
-                <span className="text-[10px] font-black uppercase tracking-[0.2em] mb-6 inline-block py-1.5 px-4 bg-brand-600 rounded-full self-start">FOR GLOBAL UNI EXPERTS</span>
-                <h3 className="text-4xl lg:text-5xl font-black mb-6 leading-tight">Share Experience. <br />Earn Significantly.</h3>
+                <span className="text-[10px] font-black uppercase tracking-[0.2em] mb-6 inline-block py-1.5 px-4 bg-brand-600 rounded-full self-start">BECOME A UNI EXPERT & EARN</span>
+                <h3 className="text-4xl lg:text-5xl font-black mb-6 leading-tight">Once you move abroad, share your journey.</h3>
                 <p className="text-slate-400 text-lg mb-8 font-medium leading-relaxed">
-                  Are you an international student or graduate? Monetize your experience by guiding others. Leverage our escrow platform to work securely and help build the next generation.
+                  Earn money by guiding prospective students. Your knowledge brings value and your success brings income. You never lose the fee you paid; it gets back to you through earning!
                 </p>
                 <div className="mt-auto space-y-4">
                   {isIOSNative === false && (
@@ -374,19 +388,18 @@ export const LandingPage: React.FC<LandingPageProps> = ({
                 />
                 <PricingCard
                   type="EXPERT_SERVICE"
-                  title="Full Assistance"
-                  price="399"
-                  period="one-time"
+                  title="Hire Expert"
+                  price="79.80"
+                  period="mo"
                   features={[
+                    "Pay the rest in 4 monthly installments",
                     "End-to-end 1-on-1 expert mentorship",
                     "8-Stage admission & visa roadmap",
-                    "CV, SOP, and LOR detailed reviews",
-                    "Application submission management",
-                    "Visa interview preparation sessions",
-                    "20% Money back guarantee protection"
+                    "20% Money back if Visa rejected",
+                    "Secure payments & hassle-free process"
                   ]}
                   highlight
-                  buttonText="Hire Your Partner"
+                  buttonText="Join Migonest"
                   onClick={onSignup}
                 />
               </div>
@@ -398,22 +411,31 @@ export const LandingPage: React.FC<LandingPageProps> = ({
         <section className="py-16 lg:py-24 px-6 max-w-7xl mx-auto mb-7">
           <div className="bg-brand-50/50 dark:bg-brand-900/10 rounded-[4rem] p-12 lg:p-24 flex flex-col lg:flex-row items-center gap-16 overflow-hidden border border-brand-50 dark:border-brand-900/30">
             <div className="flex-1 space-y-10 relative z-10 text-center lg:text-left">
-              <h2 className="text-4xl lg:text-6xl font-black text-slate-900 dark:text-white leading-tight">
-                Help others study abroad <br />
+              <h2 className="text-4xl lg:text-6xl font-black text-slate-900 dark:text-white leading-tight uppercase">
+                Become a Uni Expert <br />
                 {isIOSNative === false ? (
-                  <span className="text-brand-600 dark:text-brand-400">while you earn.</span>
+                  <span className="text-brand-600 dark:text-brand-400">& Earn.</span>
                 ) : (
-                  <span className="text-brand-600 dark:text-brand-400">with your expertise.</span>
+                  <span className="text-brand-600 dark:text-brand-400">& Guide.</span>
                 )}
               </h2>
-              <p className="text-lg text-slate-500 dark:text-slate-400 leading-relaxed font-medium">
-                {isIOSNative === false 
-                  ? "Already studying or graduated? Turn your experience into income. We provide the tools, the platform, and the students. You provide the guidance."
-                  : "Already studying or graduated? Share your experience by guiding others. Join our community of mentors and help build the next generation."
-                }
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start pt-6">
-                <button onClick={() => { trackEvent('EXPERT_SIGNUP_CLICK'); onSignup(); }} className="px-10 py-5 bg-brand-600 text-white rounded-2xl font-black shadow-2xl hover:bg-brand-700 transition active:scale-95 flex items-center justify-center gap-2">Become a Uni Expert <i className="fas fa-check-circle"></i></button>
+              <div className="text-lg text-slate-500 dark:text-slate-400 leading-relaxed font-medium space-y-4">
+                <p>Once you move abroad, share your journey and guide prospective students.</p>
+                <ul className="space-y-2 text-base text-slate-600 dark:text-slate-300">
+                  <li className="flex items-start gap-2"><i className="fas fa-check-circle text-brand-500 mt-1"></i> Earn money by guiding students with their study abroad journey.</li>
+                  <li className="flex items-start gap-2"><i className="fas fa-check-circle text-brand-500 mt-1"></i> Your knowledge brings value. Your success brings income.</li>
+                </ul>
+                {isIOSNative === false && (
+                  <div className="p-5 bg-brand-50 dark:bg-brand-900/20 rounded-2xl mt-6 border border-brand-100 dark:border-brand-800">
+                    <p className="font-black text-brand-700 dark:text-brand-300 flex items-center gap-2 mb-1">
+                      <i className="fas fa-coins"></i> You never lose the fee you paid.
+                    </p>
+                    <p className="text-sm">It gets back to you through earning that can help cover your living and educational expenses.</p>
+                  </div>
+                )}
+              </div>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start pt-2">
+                <button onClick={() => { trackEvent('EXPERT_SIGNUP_CLICK'); onSignup(); }} className="px-10 py-5 bg-brand-600 text-white rounded-2xl font-black shadow-2xl hover:bg-brand-700 transition active:scale-95 flex items-center justify-center gap-2">Become a Uni Expert <i className="fas fa-arrow-right"></i></button>
               </div>
             </div>
             <div className="relative shrink-0 w-full max-w-md animate-fade-in-up">
@@ -428,6 +450,30 @@ export const LandingPage: React.FC<LandingPageProps> = ({
         </section>
 
 
+
+        {/* Footer Trust Banners */}
+        <section className="bg-brand-700 text-white py-12">
+          <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-3 gap-8 text-center divide-y md:divide-y-0 md:divide-x divide-white/20">
+            <div className="pt-8 md:pt-0 px-4">
+              <i className="fas fa-users text-4xl mb-4 text-brand-300"></i>
+              <h4 className="text-lg font-black uppercase tracking-wider mb-2">Real Students. Real Experience.</h4>
+              <p className="text-brand-100">Learn from those who have done it.</p>
+            </div>
+            <div className="pt-8 md:pt-0 px-4">
+              <i className="fas fa-shield-alt text-4xl mb-4 text-brand-300"></i>
+              <h4 className="text-lg font-black uppercase tracking-wider mb-2">Trusted Guidance. Proven Success.</h4>
+              <p className="text-brand-100">From application to arrival and beyond.</p>
+            </div>
+            <div className="pt-8 md:pt-0 px-4">
+              <i className="fas fa-globe text-4xl mb-4 text-brand-300"></i>
+              <h4 className="text-lg font-black uppercase tracking-wider mb-2">Global Community.</h4>
+              <p className="text-brand-100">Join a network of students supporting students.</p>
+            </div>
+          </div>
+          <div className="text-center mt-12 text-2xl font-black italic text-brand-200 font-serif">
+            "Your Journey. Our Experience. Your Success."
+          </div>
+        </section>
 
         {/* Footer */}
         <footer className="py-7 bg-[#021B33] text-white text-center">
