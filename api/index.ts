@@ -358,7 +358,7 @@ app.post('/api/stripe-webhook', express.raw({ type: 'application/json' }), async
                 // Robust metadata fallback
                 let finalStudentId = studentId;
                 let finalExpertId = expertId;
-                let finalFee = 399; // Default Admission Journey fee in USD
+                let finalFee = 299; // Default Admission Journey fee in USD
 
                 const { data: request } = await supabase.from('service_requests').select('*').eq('id', requestId).single();
                 
@@ -1762,8 +1762,8 @@ app.post('/api/hire', async (req, res) => {
     }
 
     const { studentId, expertId, questionnaire, agreements, hiringDocuments, platform, paymentPlan } = validation.data;
-    const TOTAL_FEE = 39900; // $399.00 in cents (Reverted)
-    const INSTALLMENT_FEE = 7980; // $79.80 in cents
+    const TOTAL_FEE = 29900; // $299.00 in cents (Reverted)
+    const INSTALLMENT_FEE = 5980; // $59.80 in cents
 
     try {
         const supabase = getSupabase(req);
@@ -1941,7 +1941,7 @@ app.post('/api/hire', async (req, res) => {
 
 app.post('/api/requests/:id/resume-payment', async (req, res) => {
     const { id } = req.params;
-    const TOTAL_FEE = 39900; // $399.00 in cents (Reverted)
+    const TOTAL_FEE = 29900; // $299.00 in cents (Reverted)
 
     try {
         const supabase = getSupabase(req);
@@ -2056,14 +2056,14 @@ app.get('/api/requests/:id/sync-status', async (req, res) => {
             // Trigger expert reward (simplified mirror of webhook)
             let sId = session.metadata?.studentId;
             let eId = session.metadata?.expertId;
-            let actualFee = 399; // Reverted
+            let actualFee = 299; // Reverted
 
             if (!sId || !eId) {
                 console.log(`[SyncStatus] Metadata flaky for session ${session.id}, checking DB fallback...`);
                 if (request) {
                     sId = sId || request.student_id;
                     eId = eId || request.expert_id;
-                    actualFee = request.fee || 399;
+                    actualFee = request.fee || 299;
                 }
             }
 
@@ -2304,7 +2304,7 @@ app.put('/api/requests/:id/handshake/student', async (req, res) => {
 
         if (currentStep === 'VISA' || currentStep === 'ACCOMMODATION') {
             // Escrow Logic - Fractional Release to Expert
-            const TOTAL_FEE = currentRequest.fee || 399;
+            const TOTAL_FEE = currentRequest.fee || 299;
             const payoutPercent = currentStep === 'VISA' ? 0.40 : 0.00; // 40% for Visa success, 0% for final (80% released total)
             const expertBonus = TOTAL_FEE * payoutPercent;
             
@@ -2435,7 +2435,7 @@ app.post('/api/requests/:id/deny-confirm', async (req, res) => {
         const { data: expertProf } = await supabaseAdmin.from('profiles').select('full_name, avatar_url').eq('id', request.expert_id).single();
 
         // Escrow logic - Visa Rejection: 20% Refund to Student, 20% Payout to Expert
-        const TOTAL_FEE = request.fee || 399;
+        const TOTAL_FEE = request.fee || 299;
         const expertBonus = TOTAL_FEE * 0.20;
         const studentRefund = TOTAL_FEE * 0.20;
 

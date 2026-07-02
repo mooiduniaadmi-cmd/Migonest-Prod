@@ -13,11 +13,11 @@ Migonest utilizes a **Hybrid Backend Architecture**:
 ### The Escrow System & Payment Plans
 
 Students can hire an expert using one of two payment plans:
-1. **One-Time Payment ($399.00)**
-2. **5-Month Installment Plan ($79.80/month)**
+1. **One-Time Payment ($299.00)**
+2. **5-Month Installment Plan ($59.80/month)**
 
 Regardless of the payment plan chosen, the funds are distributed proportionally on every successful payment:
-- **20% (e.g., $79.80 total or $15.96/month):** Retained conceptually by the platform (Service Fee).
+- **20% (e.g., $59.80 total or $11.96/month):** Retained conceptually by the platform (Service Fee).
 - **40% (e.g., $239.60 total or $47.92/month):** Released immediately to the Expert's wallet to initiate/continue work.
 - **40% (e.g., $239.60 total or $47.92/month):** Held in **Escrow** (tracked via the `service_requests.fee` and `wallet_entries`) pending the final Visa outcome.
 
@@ -30,8 +30,8 @@ Admissions progress through 8 stages (Requirements -> ... -> Accommodation).
 
 ### Visa Denial Protection
 If a visa is denied, the student uploads proof. Once the expert confirms:
-- **Student Refund:** 20% ($79.80) is automatically moved from Escrow to Student Wallet.
-- **Expert Rest Fee:** 20% ($79.80) is moved from Escrow to Expert Wallet (Expert keeps 60% total).
+- **Student Refund:** 20% ($59.80) is automatically moved from Escrow to Student Wallet.
+- **Expert Rest Fee:** 20% ($59.80) is moved from Escrow to Expert Wallet (Expert keeps 60% total).
 
 ## 3. API Reference (Custom Backend - Port 3001)
 

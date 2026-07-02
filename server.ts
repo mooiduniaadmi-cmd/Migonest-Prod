@@ -100,7 +100,7 @@ app.get('/api/requests/:id/sync-status', async (req, res) => {
         if (session) {
             await supabase.from('service_requests').update({ status: 'PAID' }).eq('id', id);
             
-            const TOTAL_FEE = 399; // $399
+            const TOTAL_FEE = 299; // $299
             const expertPayout = TOTAL_FEE * 0.4;
             const studentId = session.metadata?.studentId;
             const expertId = session.metadata?.expertId;
@@ -180,7 +180,7 @@ app.post('/api/stripe-webhook', express.raw({ type: 'application/json' }), async
                 
                 if (updatedData && updatedData.length > 0) {
                     if (type === 'HIRE') {
-                        const TOTAL_FEE = 399; 
+                        const TOTAL_FEE = 299; 
                         const expertPayout = TOTAL_FEE * 0.4;
                     
                     const { data: studentProfile } = await supabase.from('profiles').select('full_name, avatar_url').eq('id', studentId).single();
@@ -311,7 +311,7 @@ app.post('/api/stripe-webhook', express.raw({ type: 'application/json' }), async
                         is_locked: false
                     }).eq('id', requestId);
                     
-                    const INSTALLMENT_TOTAL = 79.80;
+                    const INSTALLMENT_TOTAL = 59.80;
                     const expertPayout = INSTALLMENT_TOTAL * 0.4;
                     
                     const { data: studentProfile } = await supabase.from('profiles').select('full_name, avatar_url').eq('id', studentId).single();
@@ -756,7 +756,7 @@ app.post('/api/wallet/withdraw', async (req, res) => {
 
 /**
  * 1. Hire Expert (Round 1: Initial Escrow split)
- * Student pays $399.
+ * Student pays $299.
  * - 20% to Platform
  * - 40% released to Expert Wallet
  * - 40% locked in Escrow
@@ -775,7 +775,7 @@ app.post('/api/hire', async (req, res) => {
   }
 
   const { studentId, expertId, questionnaire, agreements } = validation.data;
-  const TOTAL_FEE = 399;
+  const TOTAL_FEE = 299;
 
   try {
     // 1. Create Journey (Restriction removed: Always allow new journeys)
@@ -931,7 +931,7 @@ app.put('/api/requests/:id/handshake/student', async (req, res) => {
 
     if (currentStep === 'VISA') {
       // Escrow Logic - 40% Visa Success Release to Expert
-      const TOTAL_FEE = currentRequest.fee || 399;
+      const TOTAL_FEE = currentRequest.fee || 299;
       const visaApprovedExpertBonus = TOTAL_FEE * 0.40;
       
       // Fetch names for description
@@ -999,7 +999,7 @@ app.post('/api/requests/:id/deny-confirm', async (req, res) => {
     }
 
     // 2. Trigger Financial Rejection Logic (20% Refund to Student, 20% Payout to Expert)
-    const TOTAL_FEE = request.fee || 399;
+    const TOTAL_FEE = request.fee || 299;
     const expertBonus = TOTAL_FEE * 0.20;
     const studentRefund = TOTAL_FEE * 0.20;
 

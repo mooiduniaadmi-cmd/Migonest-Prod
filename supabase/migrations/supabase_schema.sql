@@ -50,7 +50,7 @@ CREATE TABLE service_requests (
   is_pending_student_confirmation BOOLEAN DEFAULT false,
   is_milestone_rejected BOOLEAN DEFAULT false,
   visa_status visa_outcome DEFAULT 'PENDING',
-  fee NUMERIC(10,2) DEFAULT 399.00,
+  fee NUMERIC(10,2) DEFAULT 299.00,
   platform_fee_pct NUMERIC DEFAULT 20,
   payment_plan TEXT DEFAULT 'ONE_TIME', -- 'ONE_TIME' or 'INSTALLMENTS'
   installments_paid INTEGER DEFAULT 0,

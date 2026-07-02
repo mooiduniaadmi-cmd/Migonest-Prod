@@ -216,7 +216,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
                     <>
                       <div className="flex items-center gap-3">
                         <div className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center"><i className="fas fa-check text-xs"></i></div>
-                        <span className="font-bold">Hire Expert with only $79.80</span>
+                        <span className="font-bold">Hire Expert with only $59.80</span>
                       </div>
                       <div className="flex items-center gap-3">
                         <div className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center"><i className="fas fa-check text-xs"></i></div>
@@ -389,7 +389,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
                 <PricingCard
                   type="EXPERT_SERVICE"
                   title="Hire Expert"
-                  price="79.80"
+                  price="59.80"
                   period="mo"
                   features={[
                     "Pay the rest in 4 monthly installments",
