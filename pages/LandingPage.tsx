@@ -240,9 +240,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
                 <span className="text-[10px] font-black uppercase tracking-[0.2em] mb-4 inline-block py-1.5 px-4 bg-brand-600 rounded-full self-start">BECOME A UNI EXPERT & EARN</span>
                 <div className="mb-6">
                   <p className="text-lg font-bold text-brand-100 leading-tight">
-                    Earn a <br/>
-                    <span className="text-4xl font-black text-brand-400 my-1 block">$1.99 bonus</span>
-                    whenever a user subscribes via your profile chat box.
+                    Earn a <span className="text-2xl font-black text-brand-400">$1.99 bonus</span> whenever a user subscribes via your profile chat box.
                   </p>
                 </div>
                 <h3 className="text-3xl lg:text-4xl font-black mb-4 leading-tight">Once you move abroad, share your journey.</h3>
