@@ -66,7 +66,7 @@ export const RefundGuaranteeModal: React.FC<Props> = ({ isOpen, onClose }) => {
 
             <section>
               <h3 className="font-black text-slate-900 dark:text-white uppercase text-[10px] tracking-widest mb-3 border-b border-gray-100 dark:border-slate-700 pb-2">3. Platform Fees</h3>
-              <p>Please note that subscription fees (Premium $19.99/mo) are non-refundable as they provide ongoing access to platform tools and community features.</p>
+              <p>Please note that subscription fees (Premium $9.99/mo) are non-refundable as they provide ongoing access to platform tools and community features.</p>
             </section>
           </div>
         </div>

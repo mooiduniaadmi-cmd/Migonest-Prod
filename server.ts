@@ -581,7 +581,7 @@ app.get('/api/health', async (req, res) => {
 
 /**
  * 0. Subscribe to Premium
- * Deducts $19.99 and sets is_subscribed to true.
+ * Deducts $9.99 and sets is_subscribed to true.
  */
 app.post('/api/subscribe', async (req, res) => {
   const subscribeSchema = z.object({
@@ -595,7 +595,7 @@ app.post('/api/subscribe', async (req, res) => {
   }
 
   const { userId, referrerId } = validation.data;
-  const SUBSCRIPTION_FEE = 19.99;
+  const SUBSCRIPTION_FEE = 9.99;
   const REFERRAL_REWARD = 2.00;
 
   try {
@@ -605,9 +605,9 @@ app.post('/api/subscribe', async (req, res) => {
         const supabase = getSupabase();
         await supabase.from('profiles').update({ is_subscribed: true }).eq('id', userId);
         await supabase.from('wallet_entries').insert({
-            profile_id: userId, amount: -19.99, type: 'PAYMENT', description: 'Migonest Premium (Mock)', status: 'COMPLETED'
+            profile_id: userId, amount: -9.99, type: 'PAYMENT', description: 'Migonest Premium (Mock)', status: 'COMPLETED'
         });
-        await supabase.rpc('increment_wallet', { row_id: userId, val: -19.99 });
+        await supabase.rpc('increment_wallet', { row_id: userId, val: -9.99 });
         return res.json({ success: true, mode: 'mock' });
     }
 

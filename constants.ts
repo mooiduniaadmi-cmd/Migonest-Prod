@@ -2,7 +2,7 @@ import { Profile, Post, AdmissionStep, ServiceRequest, AppNotification } from '.
 
 export const SERVICE_FEE = 299; // Total Admission Journey fee in USD (Reverted from testing)
 export const PLATFORM_FEE_PERCENT = 20;
-export const SUBSCRIPTION_FEE = 19.99;
+export const SUBSCRIPTION_FEE = 9.99;
 
 export const ADMISSION_STAGES: { id: AdmissionStep; label: string; description: string; icon: string }[] = [
   { id: 'REQUIREMENTS', label: 'Requirements', description: 'Evaluation of academic eligibility and test scores.', icon: 'fa-list-check' },

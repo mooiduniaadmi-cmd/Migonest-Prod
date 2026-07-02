@@ -313,7 +313,7 @@ app.post('/api/stripe-webhook', express.raw({ type: 'application/json' }), async
                 if (notifError) console.error(`[Stripe Webhook] Warning: Could not create notification:`, notifError);
 
                 if (referrerId && referrerId !== userId) {
-                    const REFERRAL_REWARD = 2.00;
+                    const REFERRAL_REWARD = 1.99;
                     
                     // 5. Idempotency Check: Don't reward the same referrer for the same student twice
                     const { data: existingReward } = await supabase
@@ -321,7 +321,7 @@ app.post('/api/stripe-webhook', express.raw({ type: 'application/json' }), async
                         .select('id')
                         .eq('profile_id', referrerId)
                         .eq('counterparty_id', userId)
-                        .ilike('description', '%Referral Reward%')
+                        .ilike('description', '%Subscription Bonus%')
                         .limit(1);
 
                     if (existingReward && existingReward.length > 0) {
@@ -333,17 +333,17 @@ app.post('/api/stripe-webhook', express.raw({ type: 'application/json' }), async
                             profile_id: referrerId,
                             amount: REFERRAL_REWARD,
                             type: 'EARNING',
-                            description: `Referral Reward for ${subProfile?.full_name || 'a new subscriber'}`,
+                            description: `Subscription Bonus from Profile Chat for ${subProfile?.full_name || 'a new subscriber'}`,
                             status: 'COMPLETED',
                             counterparty_id: userId,
                             counterparty_name: subProfile?.full_name || 'Subscriber',
                             counterparty_role: 'STUDENT',
-                            university: 'Migonest Referral Program',
+                            university: 'Migonest Premium Bonus',
                             country: 'Global'
                         });
 
                         await supabase.rpc('increment_wallet', { row_id: referrerId, val: REFERRAL_REWARD });
-                        await supabase.from('notifications').insert({ user_id: referrerId, title: 'Referral Reward Earned!', message: `You've earned $${REFERRAL_REWARD.toFixed(2)} because ${subProfile?.full_name || 'someone'} upgraded to Premium via your referral!`, type: 'WALLET' });
+                        await supabase.from('notifications').insert({ user_id: referrerId, title: 'Subscription Bonus Earned!', message: `You've earned $${REFERRAL_REWARD.toFixed(2)} because ${subProfile?.full_name || 'someone'} upgraded to Premium after messaging you!`, type: 'WALLET' });
                         console.log(`[Stripe Webhook] Successfully rewarded referrer ${referrerId} for student ${userId}`);
                     }
                 }

@@ -118,7 +118,7 @@ export const ProfileDetailModal: React.FC<Props> = ({ user, posts, isOpen, onClo
 
     // IF iOS student and not subscribed, trigger Paywall immediately
     if (isIOSNative && currentUser.role === 'STUDENT' && !currentUser.isSubscribed && onSubscribe) {
-      onSubscribe();
+      onSubscribe(false, user.id);
       return;
     }
 

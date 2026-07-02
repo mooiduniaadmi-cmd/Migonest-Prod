@@ -374,7 +374,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
                 <PricingCard
                   type="STUDENT_PLAN"
                   title="Premium Access"
-                  price="19.99"
+                  price="9.99"
                   period="month"
                   features={[
                     "Unlimited direct messaging with all experts",

@@ -2434,7 +2434,7 @@ export const useAppLogic = () => {
 
 
       if (res.success) {
-        const updatedUser = { ...currentUser, isSubscribed: true, walletBalance: currentUser.walletBalance - 19.99 };
+        const updatedUser = { ...currentUser, isSubscribed: true, walletBalance: currentUser.walletBalance - 9.99 };
         setCurrentUser(updatedUser);
         localStorage.setItem('migonest_user_session', JSON.stringify(updatedUser));
         setReferralSourceId(null);

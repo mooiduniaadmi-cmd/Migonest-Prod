@@ -1641,7 +1641,7 @@ export const ProfileView: React.FC<Props> = ({
                   <span>Processing...</span>
                 </>
               ) : (
-                'Get Migonest Premium $19.99/mo'
+                'Get Migonest Premium $9.99/mo'
               )}
             </button>
           </div>
