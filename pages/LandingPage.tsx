@@ -423,6 +423,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
                 <p>Once you move abroad, share your journey and guide prospective students.</p>
                 <ul className="space-y-2 text-base text-slate-600 dark:text-slate-300">
                   <li className="flex items-start gap-2"><i className="fas fa-check-circle text-brand-500 mt-1"></i> Earn money by guiding students with their study abroad journey.</li>
+                  <li className="flex items-start gap-2"><i className="fas fa-check-circle text-brand-500 mt-1"></i> Earn a <strong className="text-brand-600 dark:text-brand-400 font-black">$1.99 bonus</strong> whenever a user subscribes via your profile chat box.</li>
                   <li className="flex items-start gap-2"><i className="fas fa-check-circle text-brand-500 mt-1"></i> Your knowledge brings value. Your success brings income.</li>
                 </ul>
                 {isIOSNative === false && (
