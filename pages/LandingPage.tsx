@@ -206,7 +206,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
                     <>
                       <div className="flex items-center gap-3">
                         <div className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center"><i className="fas fa-check text-xs"></i></div>
-                        <span className="font-bold">Full Assistance Service Fee: $599.00</span>
+                        <span className="font-bold">Full Assistance Service Fee: $399.00</span>
                       </div>
                       <div className="flex items-center gap-3">
                         <div className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center"><i className="fas fa-check text-xs"></i></div>
@@ -375,7 +375,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
                 <PricingCard
                   type="EXPERT_SERVICE"
                   title="Full Assistance"
-                  price="599"
+                  price="399"
                   period="one-time"
                   features={[
                     "End-to-end 1-on-1 expert mentorship",

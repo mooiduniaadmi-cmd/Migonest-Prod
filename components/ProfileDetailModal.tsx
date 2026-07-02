@@ -434,7 +434,7 @@ export const ProfileDetailModal: React.FC<Props> = ({ user, posts, isOpen, onClo
                 onClick={() => { onHire(user); onClose(); }}
                 className="w-full sm:hidden py-4 bg-brand-600 text-white rounded-2xl font-bold shadow-xl shadow-brand-500/20 hover:bg-brand-700 transition active:scale-95 flex items-center justify-center gap-2"
               >
-                <i className="fas fa-user-plus"></i> Hire Expert ($599)
+                <i className="fas fa-user-plus"></i> Hire Expert ($399)
               </button>
             )}
             <div className="flex flex-col sm:flex-row gap-4">

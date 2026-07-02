@@ -826,7 +826,7 @@ export const api = {
         questionnaire: payload.questionnaire,
         agreements: payload.agreements,
         hiring_documents: payload.hiringDocuments,
-        fee: 599,
+        fee: 399,
         platform_fee_pct: 20
       })
       .select()

@@ -35,7 +35,7 @@ export const TermsModal: React.FC<Props> = ({ isOpen, onClose }) => {
 
           <section>
             <h3 className="font-black text-slate-900 dark:text-white uppercase text-[10px] tracking-widest mb-3 border-b border-gray-100 dark:border-slate-700 pb-2">2. Payment & Escrow Policy</h3>
-            <p>All service payments ($599.00 for Full Assistance) are processed through the Platform's Stripe Connect infrastructure. The fee distribution is as follows:</p>
+            <p>All service payments ($399.00 for Full Assistance) are processed through the Platform's Stripe Connect infrastructure. The fee distribution is as follows:</p>
             <ul className="list-disc ml-5 mt-2 space-y-1">
               <li><b>20% Platform Fee:</b> Retained by Migonest (MigoSky LLC) for operational and matching services.</li>
               <li><b>40% Initial Release:</b> Paid to the Expert immediately upon the Student's successful transaction to initiate the roadmap.</li>

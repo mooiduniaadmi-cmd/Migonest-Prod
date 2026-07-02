@@ -71,16 +71,16 @@ export const WalletView: React.FC<Props> = ({
     setLocalPayoutsEnabled(user.payoutsEnabled);
   }, [user.stripeConnectId, user.payoutsEnabled]);
 
-  // Fixed Calculations based on $599.00
-  const totalServiceFee = SERVICE_FEE; // $599.00
-  const migonestFee = totalServiceFee * 0.20; // $119.80 (Stays in Migonest Stripe)
+  // Fixed Calculations based on $399.00
+  const totalServiceFee = SERVICE_FEE; // $399.00
+  const migonestFee = totalServiceFee * 0.20; // $79.80 (Stays in Migonest Stripe)
   const expertInitialPayout = totalServiceFee * 0.40; // $239.60 (Immediate to Expert Wallet)
   const lockedEscrowBalance = totalServiceFee * 0.40; // $239.60 (Held in Escrow)
 
   // Scenario outcomes
   const visaApprovedExpertBonus = lockedEscrowBalance; // +$239.60 (Total 80% for Expert)
-  const visaDeniedExpertBonus = totalServiceFee * 0.20; // +$119.80 (Total 60% for Expert)
-  const visaDeniedStudentRefund = totalServiceFee * 0.20; // $119.80 (Refund to Student)
+  const visaDeniedExpertBonus = totalServiceFee * 0.20; // +$79.80 (Total 60% for Expert)
+  const visaDeniedStudentRefund = totalServiceFee * 0.20; // $79.80 (Refund to Student)
 
   const checkPayoutStatus = React.useCallback(async (attempts = 0) => {
     if (user.payoutsEnabled) {

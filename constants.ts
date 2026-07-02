@@ -1,6 +1,6 @@
 import { Profile, Post, AdmissionStep, ServiceRequest, AppNotification } from './types';
 
-export const SERVICE_FEE = 599; // Total Admission Journey fee in USD (Reverted from testing)
+export const SERVICE_FEE = 399; // Total Admission Journey fee in USD (Reverted from testing)
 export const PLATFORM_FEE_PERCENT = 20;
 export const SUBSCRIPTION_FEE = 19.99;
 

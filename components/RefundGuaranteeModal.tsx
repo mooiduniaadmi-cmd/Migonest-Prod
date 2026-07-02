@@ -46,7 +46,7 @@ export const RefundGuaranteeModal: React.FC<Props> = ({ isOpen, onClose }) => {
 
             <section>
               <h3 className="font-black text-slate-900 dark:text-white uppercase text-[10px] tracking-widest mb-3 border-b border-gray-100 dark:border-slate-700 pb-2">1. How It Works</h3>
-              <p>If you have hired an expert for the "Full Assistance" service ($599) and your visa application is denied by the embassy:</p>
+              <p>If you have hired an expert for the "Full Assistance" service ($399) and your visa application is denied by the embassy:</p>
               <ul className="list-disc pl-5 space-y-2 mt-2">
                 <li>You notify Migonest within 7 days of receiving the denial.</li>
                 <li>You upload the official rejection letter from the embassy.</li>

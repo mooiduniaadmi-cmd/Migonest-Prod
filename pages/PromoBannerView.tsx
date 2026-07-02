@@ -59,7 +59,7 @@ export const PromoBannerView: React.FC<{ onBack?: () => void; isIOSNative?: bool
       badge: 'For Experts',
       details: [
         'Set your profile live and receive admission inquiry requests',
-        'Earn $599 per student journey with 40% immediate release',
+        'Earn $399 per student journey with 40% immediate release',
         'Built-in secure withdrawal request system to local bank',
         'Create professional brand authority as a verified Uni Expert'
       ]

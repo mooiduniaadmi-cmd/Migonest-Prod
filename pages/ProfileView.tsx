@@ -360,7 +360,7 @@ const BecomeExpertInfoModal = ({ onClose }: { onClose: () => void }) => {
                 </div>
                 <div className="p-5 bg-white/10 rounded-2xl border border-white/10 backdrop-blur-sm">
                   <p className="text-[11px] text-slate-200 leading-relaxed">
-                    Once a student pays <span className="text-brand-400 font-black">$599</span> and hires you, 8 Admission Journey Cards will be available under the Admission tab to document conversations and track progress.
+                    Once a student pays <span className="text-brand-400 font-black">$399</span> and hires you, 8 Admission Journey Cards will be available under the Admission tab to document conversations and track progress.
                   </p>
                 </div>
               </div>
